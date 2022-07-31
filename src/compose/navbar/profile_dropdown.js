@@ -1,7 +1,6 @@
 import { ref } from 'vue';
 
 export default () => {
-  const profileDropdownVisible = ref(false);
   const logoutModalVisible = ref(false);
   const profileDropdownItems = [
     {
@@ -20,17 +19,12 @@ export default () => {
     },
   ];
 
-  const showProfileDropdown = () => (profileDropdownVisible.value = true);
-  const hideProfileDropdown = () => (profileDropdownVisible.value = false);
   const showLogoutModal = () => (logoutModalVisible.value = true);
   const hideLogoutModal = () => (profileDropdownVisible.value = false);
 
   return {
-    profileDropdownVisible,
     logoutModalVisible,
     profileDropdownItems,
-    showProfileDropdown,
-    hideProfileDropdown,
     showLogoutModal,
     hideLogoutModal,
   };

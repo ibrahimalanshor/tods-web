@@ -2,8 +2,8 @@
   <ui-dropdown
     :items="profileDropdownItems"
     position="right"
+    space="medium"
     v-on:item-click="handeProfileDropdownItemClick"
-    v-model:visible="profileDropdownVisible"
   >
     <template #toggle>
       <button class="flex items-center">
