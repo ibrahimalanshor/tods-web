@@ -3,40 +3,45 @@
     <div v-on:click="handleToggleClick">
       <slot name="toggle"></slot>
     </div>
-    <div v-if="props.visible">
-      <slot>
+    <slot v-if="visible">
+      <div
+        class="bg-white absolute py-2 border rounded z-10"
+        :class="[
+          getContentSizeClass,
+          getContentPositionClass,
+          getContentTopClass,
+        ]"
+      >
         <div
-          class="bg-white absolute py-2 border top-10 rounded"
-          :class="[getContentSizeClass, getContentPositionClass]"
+          v-for="(item, key) in props.items"
+          :key="key"
+          class="cursor-pointer hover:bg-gray-100 px-4 py-2"
+          :class="[item.class, item.divider ? 'border-b' : '']"
+          v-on:click="handleItemClick(item)"
         >
-          <div
-            v-for="(item, key) in props.items"
-            :key="key"
-            class="cursor-pointer hover:bg-gray-100 px-4 py-2"
-            :class="[item.class, item.divider ? 'border-b' : '']"
-            v-on:click="handleItemClick(item)"
-          >
-            {{ item.text }}
-          </div>
+          {{ item.text }}
         </div>
-      </slot>
-    </div>
+      </div>
+    </slot>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, watch, computed } from 'vue';
 
 const props = defineProps({
   items: Array,
   size: String,
   position: String,
+  space: String,
   visible: {
     type: Boolean,
     default: false,
   },
 });
 const emit = defineEmits(['item-click', 'update:visible']);
+
+const visible = ref(props.visible);
 
 const getContentSizeClass = computed(() => {
   const sizes = {
@@ -53,8 +58,21 @@ const getContentPositionClass = computed(() => {
 
   return positions[props.position ?? 'left'];
 });
+const getContentTopClass = computed(() => {
+  const spaces = {
+    medium: 'top-10',
+    normal: 'top-5',
+    none: 'top-0',
+  };
 
-const handleClickOutside = () => emit('update:visible', false);
-const handleToggleClick = () => emit('update:visible', !props.visible);
+  return spaces[props.space ?? 'normal'];
+});
+
+const handleClickOutside = () => (visible.value = false);
+const handleToggleClick = () => (visible.value = !visible.value);
 const handleItemClick = (item) => emit('item-click', item);
+
+watch(visible, () => {
+  emit('update:visible', visible.value);
+});
 </script>
