@@ -17,10 +17,10 @@
 <script setup>
 import { ref } from 'vue';
 import {
-  Albums as CategoryIcon,
-  Browsers as TodoIcon,
-  Settings as AllTodoIcon,
-  Person as UserIcon,
+  AlbumsOutline as CategoryIcon,
+  BrowsersOutline as TodoIcon,
+  SettingsOutline as AllTodoIcon,
+  PersonOutline as UserIcon,
 } from '@vicons/ionicons5';
 import { Icon } from '@vicons/utils';
 import { SidebarNav } from '@/components/sidebar/render';
