@@ -70,7 +70,13 @@ const getContentTopClass = computed(() => {
 
 const handleClickOutside = () => (visible.value = false);
 const handleToggleClick = () => (visible.value = !visible.value);
-const handleItemClick = (item) => emit('item-click', item);
+const handleItemClick = (item) => {
+  if (item.onClick) {
+    item.onClick(item);
+  }
+
+  emit('item-click', item);
+};
 
 watch(visible, () => {
   emit('update:visible', visible.value);

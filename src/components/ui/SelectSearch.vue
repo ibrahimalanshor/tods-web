@@ -16,7 +16,7 @@ import {
 } from '@/components/icon';
 
 const props = defineProps({
-  modelValue: Object,
+  modelValue: null,
   options: Array,
 });
 const emit = defineEmits(['update:modelValue']);
@@ -29,20 +29,21 @@ watch(selected, () => {
 </script>
 
 <style>
-.v-select .vs__search::placeholder,
 .v-select .vs__dropdown-toggle {
   @apply bg-white border border-gray-200 px-3 py-2 rounded hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-200;
 }
-
+.v-select .vs__search::placeholder {
+  @apply text-gray-400;
+}
 .v-select .vs__selected-options,
 .v-select .vs__selected,
 .v-select .vs__search,
 .v-select .vs__search:focus,
 .v-select .vs__actions,
-.v-select .vs__dropdown-menu {
+.v-select .vs__dropdown-menu,
+.v-select .vs__search::placeholder {
   @apply p-0 m-0;
 }
-
 .v-select .vs__dropdown-menu {
   @apply border border-gray-200 shadow-none border-t;
 }

@@ -11,7 +11,11 @@
         class="bg-white max-w-[500px] mx-auto mt-10 rounded shadow-lg"
         v-click-outside="handleClickOutside"
       >
-        <div class="p-4 border-b flex items-center justify-between">
+        <div
+          class="p-4 border-b flex items-center justify-between"
+          :class="props.headerClass"
+          v-if="props.header"
+        >
           <slot name="title">
             <h2 class="text-lg font-bold" v-if="props.title">
               {{ props.title }}
@@ -27,7 +31,7 @@
             </slot>
           </div>
         </div>
-        <div class="p-4">
+        <div class="p-4" :class="props.contentClass">
           <slot>
             <p class="leading-loose text-gray-700">{{ props.content }}</p>
           </slot>
@@ -65,6 +69,12 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  header: {
+    type: Boolean,
+    default: true,
+  },
+  headerClass: String,
+  contentClass: String,
   footer: {
     type: Boolean,
     default: true,
