@@ -1,7 +1,7 @@
 <template>
   <ui-modal title="New Todo" v-model:visible="todoModalVisible">
     <template #toggle>
-      <ui-button title="New Todo" size="sm" color="primary" />
+      <ui-button title="New Todo" color="primary" />
     </template>
 
     <todo-form />
@@ -14,11 +14,6 @@
 </template>
 
 <script setup>
-import {
-  CalendarClearOutline as CalendarIcon,
-  BookmarkOutline as CategoryIcon,
-} from '@vicons/ionicons5';
-import { Icon } from '@vicons/utils';
 import { UiButton, UiModal } from '@/components/ui';
 import { TodoForm } from '@/components/todo';
 import { useTodoModal } from '@/compose/todo';

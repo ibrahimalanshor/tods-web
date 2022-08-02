@@ -6,3 +6,7 @@ export { default as UiInput } from './Input.vue';
 export { default as UiFormItem } from './FormItem.vue';
 export { default as UiDatePicker } from './DatePicker.vue';
 export { default as UiCheckbox } from './Checkbox.vue';
+export { default as UiCollapse } from './Collapse.vue';
+export { default as UiSelect } from './Select.vue';
+export { default as UiBadge } from './Badge.vue';
+export { default as UiTextarea } from './Textarea.vue';
