@@ -1,6 +1,7 @@
 # Tods Web
 
 - [x] Setup Project
-- [ ] Dev
+- [x] Dev
+- [ ] Integrate
 - [ ] Test
 - [ ] Publish
