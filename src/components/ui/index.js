@@ -10,3 +10,4 @@ export { default as UiCollapse } from './Collapse.vue';
 export { default as UiSelect } from './Select.vue';
 export { default as UiBadge } from './Badge.vue';
 export { default as UiTextarea } from './Textarea.vue';
+export { default as UiLink } from './Link.vue';

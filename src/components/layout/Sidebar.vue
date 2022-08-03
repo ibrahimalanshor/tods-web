@@ -4,12 +4,7 @@
     :class="sidebar.isCollapsed ? 'left-full md:left-0' : 'left-0'"
   >
     <div class="overflow-x-auto h-full">
-      <sidebar-nav
-        :navs="navs"
-        :active="activeNav"
-        :show="showNav"
-        v-on:item-click="handleItemClick"
-      />
+      <sidebar-nav :navs="navs" :active="activeNav" :show="showNav" />
     </div>
   </aside>
 </template>
@@ -19,12 +14,17 @@ import { ref } from 'vue';
 import {
   AlbumsOutline as CategoryIcon,
   BrowsersOutline as TodoIcon,
-  SettingsOutline as AllTodoIcon,
+  FolderOutline as AllTodoIcon,
   PersonOutline as UserIcon,
+  CalendarOutline as CalendarIcon,
+  CheckboxOutline as DoneIcon,
+  FlagOutline as LateIcon,
+  TodayOutline as TodayIcon,
 } from '@vicons/ionicons5';
 import { Icon } from '@vicons/utils';
 import { SidebarNav } from '@/components/sidebar/render';
 import { useSidebar } from '@/store';
+import { useRoute } from 'vue-router';
 
 const navs = [
   {
@@ -36,19 +36,41 @@ const navs = [
         label: 'Todo',
         children: [
           {
-            key: 'all',
+            key: 'all-todo',
             icon: AllTodoIcon,
+            to: 'All Todo',
             label: 'All',
           },
           {
-            icon: UserIcon,
-            label: 'Future',
+            key: 'done-todo',
+            icon: DoneIcon,
+            to: 'Done Todo',
+            label: 'Done',
+          },
+          {
+            key: 'due-todo',
+            icon: TodayIcon,
+            to: 'Due Todo',
+            label: 'Due Today',
+          },
+          {
+            key: 'late-todo',
+            icon: LateIcon,
+            to: 'Late Todo',
+            label: 'Late',
+          },
+          {
+            key: 'ongoing-todo',
+            icon: CalendarIcon,
+            to: 'Ongoing Todo',
+            label: 'Ongoing',
           },
         ],
       },
       {
         key: 'category',
         icon: CategoryIcon,
+        to: 'All Category',
         label: 'Category',
       },
     ],
@@ -56,8 +78,7 @@ const navs = [
 ];
 
 const sidebar = useSidebar();
-const activeNav = ref([]);
-const showNav = ref([]);
-
-const handleItemClick = (item) => console.log(item);
+const route = useRoute();
+const activeNav = ref(route.matched.map((path) => path.meta.navKey));
+const showNav = ref(route.matched.map((path) => path.meta.navKey));
 </script>

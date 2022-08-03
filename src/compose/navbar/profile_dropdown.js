@@ -6,10 +6,12 @@ export default () => {
     {
       key: 'profile',
       text: 'Profile',
+      to: 'Profile',
     },
     {
       key: 'setting',
       text: 'Setting',
+      to: 'Setting',
       divider: true,
     },
     {
