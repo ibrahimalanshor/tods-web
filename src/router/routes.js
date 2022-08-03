@@ -5,6 +5,60 @@ export default [
     component: () => import('@/views/Home.vue'),
   },
   {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('@/views/Profile.vue'),
+  },
+  {
+    path: '/setting',
+    name: 'Setting',
+    component: () => import('@/views/Setting.vue'),
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/auth/Login.vue'),
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/auth/Register.vue'),
+  },
+  {
+    path: '/forgot-password',
+    name: 'Forgot Password',
+    component: () => import('@/views/auth/ForgotPassword.vue'),
+  },
+  {
+    path: '/verification',
+    name: 'Verification Email',
+    component: () => import('@/views/auth/VerificationEmail.vue'),
+  },
+  {
+    path: '/reset-password',
+    name: 'Reset Password',
+    component: () => import('@/views/auth/ResetPassword.vue'),
+  },
+  {
+    path: '/category',
+    component: () => import('@/layouts/Empty.vue'),
+    meta: {
+      navKey: 'category',
+    },
+    children: [
+      {
+        path: '',
+        name: 'All Category',
+        component: () => import('@/views/category/All.vue'),
+      },
+      {
+        path: ':id',
+        name: 'Todo Category',
+        component: () => import('@/views/category/Todo.vue'),
+      },
+    ],
+  },
+  {
     path: '/todo',
     component: () => import('@/layouts/Empty.vue'),
     meta: {
@@ -43,7 +97,7 @@ export default [
         name: 'Late Todo',
         component: () => import('@/views/todo/Late.vue'),
         meta: {
-          navKey: 'todo-all',
+          navKey: 'late-todo',
           parent: 'todo',
         },
       },
@@ -57,5 +111,10 @@ export default [
         },
       },
     ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound.vue'),
   },
 ];
