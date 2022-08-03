@@ -4,12 +4,7 @@
     :class="sidebar.isCollapsed ? 'left-full md:left-0' : 'left-0'"
   >
     <div class="overflow-x-auto h-full">
-      <sidebar-nav
-        :navs="navs"
-        :active="activeNav"
-        :show="showNav"
-        v-on:item-click="handleItemClick"
-      />
+      <sidebar-nav :navs="navs" :active="activeNav" :show="showNav" />
     </div>
   </aside>
 </template>
@@ -75,6 +70,7 @@ const navs = [
       {
         key: 'category',
         icon: CategoryIcon,
+        to: 'All Category',
         label: 'Category',
       },
     ],
@@ -85,6 +81,4 @@ const sidebar = useSidebar();
 const route = useRoute();
 const activeNav = ref(route.matched.map((path) => path.meta.navKey));
 const showNav = ref(route.matched.map((path) => path.meta.navKey));
-
-const handleItemClick = (item) => console.log(item);
 </script>
