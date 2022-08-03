@@ -2,7 +2,7 @@
   <app>
     <div class="flex items-center justify-between mb-4">
       <h1 class="font-bold text-2xl">All Todo</h1>
-      <home-action />
+      <todo-list-action />
     </div>
     <todo-list :todos="todos" />
   </app>
@@ -10,7 +10,7 @@
 
 <script setup>
 import { App } from '@/layouts';
-import { HomeAction } from '@/components/home';
+import { TodoListAction } from '@/components/todo/list';
 import { TodoList } from '@/components/todo';
 
 const todos = [
