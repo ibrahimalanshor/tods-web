@@ -1,4 +1,4 @@
-import { ref, h } from 'vue';
+import { ref, h, resolveComponent } from 'vue';
 import { Icon as IconUtil } from '@vicons/utils';
 import { ChevronDown as ChevronDownIcon } from '@/components/icon';
 
@@ -94,18 +94,20 @@ export default {
     };
 
     const renderChild = (child, options) => {
+      const tag = child.to ? resolveComponent('router-link') : 'div';
       const activeClass = 'bg-primary-100 text-primary-500 font-medium';
       const labelClass =
         'px-4 mb-2 flex items-center space-x-4 hover:bg-primary-100 hover:text-primary-500 hover:font-medium py-2 rounded cursor-pointer';
 
       return h(
-        'div',
+        tag,
         {
           class: [
             labelClass,
             child.active || active.value.includes(child.key) ? activeClass : '',
             options.last ? 'mb-0' : '',
           ],
+          ...(child.to ? { to: { name: child.to } } : {}),
           onClick: (e) => handleChildClick(child, e),
         },
         {
@@ -131,9 +133,11 @@ export default {
     };
 
     const renderItem = (item) => {
+      const tag = item.to ? resolveComponent('router-link') : 'div';
+
       return h(
-        'div',
-        { class: 'mb-2' },
+        tag,
+        { class: 'mb-2', ...(item.to ? { to: { name: item.to } } : {}) },
         {
           default: () => [
             renderLabel(item),

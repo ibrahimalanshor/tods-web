@@ -1,7 +1,7 @@
 <template>
   <app>
     <div class="flex items-center justify-between mb-4">
-      <h1 class="font-bold text-2xl">Latest Todo</h1>
+      <h1 class="font-bold text-2xl">All Todo</h1>
       <home-action />
     </div>
     <todo-list :todos="todos" />
