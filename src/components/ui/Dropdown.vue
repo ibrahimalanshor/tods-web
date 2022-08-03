@@ -28,6 +28,7 @@
 
 <script setup>
 import { ref, watch, computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   items: Array,
@@ -41,6 +42,7 @@ const props = defineProps({
 });
 const emit = defineEmits(['item-click', 'update:visible']);
 
+const router = useRouter();
 const visible = ref(props.visible);
 
 const getContentSizeClass = computed(() => {
@@ -76,6 +78,10 @@ const handleItemClick = (item) => {
   }
 
   emit('item-click', item);
+
+  if (item.to) {
+    router.push({ name: item.to });
+  }
 };
 
 watch(visible, () => {

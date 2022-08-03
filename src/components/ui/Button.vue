@@ -2,7 +2,11 @@
   <button
     type="button"
     class="border rounded focus:ring-2 focus:outline-none flex items-center space-x-2"
-    :class="[sizeClass, colorClass]"
+    :class="[
+      sizeClass,
+      colorClass,
+      props.block ? 'w-full text-center justify-center' : '',
+    ]"
   >
     <slot name="icon" />
     <span
@@ -18,6 +22,10 @@ const props = defineProps({
   title: String,
   size: String,
   color: String,
+  block: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const sizeClass = computed(() => {
