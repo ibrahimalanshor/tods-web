@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="border rounded focus:ring-2 focus:outline-none flex items-center space-x-2"
+    class="border rounded focus:ring-2 focus:outline-none flex items-center space-x-2 disabled:opacity-50"
     :class="[
       sizeClass,
       colorClass,

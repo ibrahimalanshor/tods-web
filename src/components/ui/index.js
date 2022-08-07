@@ -11,3 +11,5 @@ export { default as UiSelect } from './Select.vue';
 export { default as UiBadge } from './Badge.vue';
 export { default as UiTextarea } from './Textarea.vue';
 export { default as UiLink } from './Link.vue';
+export { default as UiToast } from './Toast.vue';
+export { default as UiAlert } from './Alert.vue';
