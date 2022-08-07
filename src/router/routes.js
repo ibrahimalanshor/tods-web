@@ -3,16 +3,25 @@ export default [
     path: '/',
     name: 'Home',
     component: () => import('@/views/Home.vue'),
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: '/profile',
     name: 'Profile',
     component: () => import('@/views/Profile.vue'),
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: '/setting',
     name: 'Setting',
     component: () => import('@/views/Setting.vue'),
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: '/login',
@@ -44,6 +53,7 @@ export default [
     component: () => import('@/layouts/Empty.vue'),
     meta: {
       navKey: 'category',
+      requireAuth: true,
     },
     children: [
       {
@@ -63,6 +73,7 @@ export default [
     component: () => import('@/layouts/Empty.vue'),
     meta: {
       navKey: 'todo',
+      requireAuth: true,
     },
     children: [
       {

@@ -2,7 +2,7 @@
   <input
     type="text"
     class="block w-full border px-3 py-2 rounded hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-200"
-    :class="[sizeClass]"
+    :class="[sizeClass, statusClass]"
     v-model="value"
   />
 </template>
@@ -13,6 +13,7 @@ import { ref, watch, computed } from 'vue';
 const props = defineProps({
   modelValue: String,
   size: String,
+  status: String,
 });
 const emit = defineEmits(['update:modelValue']);
 
@@ -25,6 +26,15 @@ const sizeClass = computed(() => {
   };
 
   return sizes[props.size ?? 'normal'];
+});
+
+const statusClass = computed(() => {
+  const statuses = {
+    normal: '',
+    error: 'border-danger-500 hover:border-danger-400 focus:ring-danger-200',
+  };
+
+  return statuses[props.status ?? 'normal'];
 });
 
 watch(value, () => {
