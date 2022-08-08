@@ -27,26 +27,41 @@ export default [
     path: '/login',
     name: 'Login',
     component: () => import('@/views/auth/Login.vue'),
+    meta: {
+      requireGuest: true,
+    },
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import('@/views/auth/Register.vue'),
+    meta: {
+      requireGuest: true,
+    },
   },
   {
     path: '/forgot-password',
     name: 'Forgot Password',
     component: () => import('@/views/auth/ForgotPassword.vue'),
+    meta: {
+      requireGuest: true,
+    },
   },
   {
     path: '/verification',
     name: 'Verification Email',
     component: () => import('@/views/auth/VerificationEmail.vue'),
+    meta: {
+      requireGuest: true,
+    },
   },
   {
     path: '/reset-password',
     name: 'Reset Password',
     component: () => import('@/views/auth/ResetPassword.vue'),
+    meta: {
+      requireGuest: true,
+    },
   },
   {
     path: '/category',

@@ -1,21 +1,27 @@
 <template>
   <div class="rounded border border-b-0">
-    <category-item
-      v-for="(category, key) in props.categories"
-      :key="key"
-      :category="category"
-      v-on:edit-category="handleEditCategory"
-      v-on:delete-category="handleDeleteCategory"
-    />
+    <template v-if="categories.length">
+      <category-item
+        v-for="(category, key) in props.categories"
+        :key="key"
+        :category="category"
+        v-on:edit-category="handleEditCategory"
+        v-on:delete-category="handleDeleteCategory"
+      />
 
-    <category-edit
-      :category="editCategoryModal.category"
-      v-model="editCategoryModal.visible"
-    />
-    <category-delete
-      :category="deleteCategoryModal.category"
-      v-model="deleteCategoryModal.visible"
-    />
+      <category-edit
+        :category="editCategoryModal.category"
+        v-model="editCategoryModal.visible"
+      />
+      <category-delete
+        :category="deleteCategoryModal.category"
+        v-model="deleteCategoryModal.visible"
+      />
+    </template>
+
+    <div v-else>
+      <div class="border-b px-4 py-3">Category Empty</div>
+    </div>
   </div>
 </template>
 

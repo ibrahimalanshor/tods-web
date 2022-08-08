@@ -41,7 +41,7 @@
           color="primary"
           block
           class="mb-2"
-          :disabled="loading.items.login"
+          :disabled="loading.get('login')"
           >Sign In</ui-button
         >
         <ui-button type="button" block class="mb-3">
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed } from 'vue';
 import { Auth } from '@/layouts';
 import {
   UiFormItem,
