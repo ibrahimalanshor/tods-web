@@ -14,8 +14,8 @@ export default () => {
   const loading = useLoading();
 
   const login = async () => {
-    error.reset('login');
     loading.start('login');
+    error.reset('login');
 
     try {
       const res = await authApi.login(body);

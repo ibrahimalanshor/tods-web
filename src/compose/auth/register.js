@@ -15,8 +15,8 @@ export default () => {
   const loading = useLoading();
 
   const register = async () => {
-    error.reset('register');
     loading.start('register');
+    error.reset('register');
 
     try {
       const res = await authApi.register(body);
