@@ -11,14 +11,16 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeMount } from 'vue';
+import { onMounted, onBeforeMount, inject } from 'vue';
 import { App } from '@/layouts';
 import { CategoryList } from '@/components/category';
 import { CategoryListAction } from '@/components/category/list';
 import { useCategoryList } from '@/compose/category';
-import { useLoading } from '@/store';
+import { useLoading, useToast } from '@/store';
 
+const emitter = inject('emitter');
 const loading = useLoading();
+const toast = useToast();
 const { categories, getCategories } = useCategoryList();
 
 const setCategories = async () => {
@@ -28,6 +30,12 @@ const setCategories = async () => {
     console.log(err);
   }
 };
+
+emitter.on('category-created', (e) => {
+  toast.show(e.msg, 'success');
+
+  setCategories();
+});
 
 onBeforeMount(() => {
   loading.start('get-category');

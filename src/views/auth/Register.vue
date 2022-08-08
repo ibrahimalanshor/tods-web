@@ -86,12 +86,12 @@ const { body, register } = useRegister();
 
 const registerAlert = computed(() => {
   return {
-    visible: error.errors.register?.status === 401,
-    message: error.errors.register?.errors,
+    visible: error.get('register')?.status === 401,
+    message: error.get('register')?.errors,
   };
 });
 const formError = computed(() => {
-  return error.errors.register?.errors ?? {};
+  return error.get('register')?.errors ?? {};
 });
 
 const handleSubmitRegister = async () => {

@@ -86,12 +86,12 @@ const { body, login } = useLogin();
 
 const loginAlert = computed(() => {
   return {
-    visible: error.errors.login?.status === 401,
-    message: error.errors.login?.errors,
+    visible: error.get('login')?.status === 401,
+    message: error.get('login')?.errors,
   };
 });
 const formError = computed(() => {
-  return error.errors.login?.errors ?? {};
+  return error.get('login')?.errors ?? {};
 });
 
 const handleSubmitLogin = async () => {
