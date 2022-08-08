@@ -9,4 +9,9 @@ export default {
 
     return res.data;
   },
+  create: async function (body) {
+    const res = await http().post(this.baseURL, body);
+
+    return res.data;
+  },
 };
