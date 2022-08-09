@@ -17,7 +17,7 @@
 import { ref, watch } from 'vue';
 
 const props = defineProps({
-  modelValue: String,
+  modelValue: null,
   options: Array,
 });
 const emit = defineEmits(['update:modelValue']);
