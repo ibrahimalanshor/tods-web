@@ -23,7 +23,6 @@
 import { ref } from 'vue';
 import { Icon } from '@vicons/utils';
 import {
-  EllipsisHorizontalOutline as ActionIcon,
   CreateOutline as EditIcon,
   TrashOutline as DeleteIcon,
 } from '@vicons/ionicons5';

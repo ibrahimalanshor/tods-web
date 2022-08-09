@@ -1,14 +1,19 @@
 <template>
   <v-select
+    class="v-select"
     :components="{ Deselect, OpenIndicator }"
     :options="props.options"
+    :class="[statusClass]"
+    :loading="props.loading"
+    :filterable="props.filterable"
     v-model="selected"
-    class="v-select"
+    v-on:open="handleOpen"
+    v-on:search="handleSearch"
   />
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import vSelect from 'vue-select';
 import {
   Close as Deselect,
@@ -18,10 +23,31 @@ import {
 const props = defineProps({
   modelValue: null,
   options: Array,
+  status: String,
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+  filterable: {
+    type: Boolean,
+    default: true,
+  },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'open', 'search']);
 
 const selected = ref(props.modelValue);
+
+const statusClass = computed(() => {
+  const statuses = {
+    normal: '',
+    error: 'error',
+  };
+
+  return statuses[props.status ?? 'normal'];
+});
+
+const handleOpen = () => emit('open');
+const handleSearch = (val) => emit('search', val);
 
 watch(selected, () => {
   emit('update:modelValue', selected.value);
@@ -30,7 +56,16 @@ watch(selected, () => {
 
 <style>
 .v-select .vs__dropdown-toggle {
-  @apply bg-white border border-gray-200 px-3 py-2 rounded hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-200;
+  @apply bg-white border border-gray-200 px-3 py-2 rounded hover:border-gray-300;
+}
+.v-select.vs--open {
+  @apply outline-none ring-2 ring-primary-200 rounded;
+}
+.v-select.error .vs__dropdown-toggle {
+  @apply bg-white border border-danger-500 px-3 py-2 rounded hover:border-danger-400 focus:outline-none focus:ring-2 focus:ring-danger-200;
+}
+.v-select.error.vs--open {
+  @apply outline-none ring-2 ring-danger-200 rounded;
 }
 .v-select .vs__search::placeholder {
   @apply text-gray-400;

@@ -6,8 +6,8 @@
       id="name"
       placeholder="Name"
       v-model="body.name"
-      :status="errors.name ? 'error' : ''"
-      :feedback="errors.name?.msg"
+      :status="errors?.name ? 'error' : ''"
+      :feedback="errors?.name?.msg"
     />
   </form>
 </template>

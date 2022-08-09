@@ -2,6 +2,7 @@
   <div class="border-b px-4 py-3 flex items-center justify-between">
     <ui-checkbox
       :label="props.todo.name"
+      :checked="props.todo.status"
       v-on:check="handleCheckTodo"
       v-model="done"
     >
@@ -14,22 +15,28 @@
         >
       </template>
     </ui-checkbox>
-    <ui-dropdown position="right" space="small" :items="todoActionItems">
-      <template #toggle>
-        <button>
-          <icon size="20">
-            <action-icon />
-          </icon>
-        </button>
-      </template>
-    </ui-dropdown>
+    <div class="flex items-center space-x-2">
+      <button class="text-primary-500" v-on:click="handleEditTodo">
+        <icon size="20">
+          <edit-icon />
+        </icon>
+      </button>
+      <button class="text-danger-500" v-on:click="handleDeleteTodo">
+        <icon size="20">
+          <delete-icon />
+        </icon>
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { Icon } from '@vicons/utils';
-import { EllipsisHorizontalOutline as ActionIcon } from '@vicons/ionicons5';
+import {
+  CreateOutline as EditIcon,
+  TrashOutline as DeleteIcon,
+} from '@vicons/ionicons5';
 import { UiCheckbox, UiDropdown } from '@/components/ui';
 
 const props = defineProps({
