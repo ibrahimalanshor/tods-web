@@ -37,11 +37,18 @@ const setTodos = async () => {
   }
 };
 
-const handleFilter = ({ sort, order, status, due }) => {
+const handleFilter = ({ sort, order, status, due, categoryId }) => {
   filter.sort = sort;
   filter.order = order;
   filter.status = status;
   filter.due = due;
+  filter.categoryId = categoryId;
+
+  if (filter.status === 'late') {
+    filter.late = new Date();
+  } else {
+    filter.late = null;
+  }
 
   setTodos();
 };
