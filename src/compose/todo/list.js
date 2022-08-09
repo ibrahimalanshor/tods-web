@@ -10,6 +10,7 @@ export default () => {
     status: null,
     due: null,
     late: null,
+    categoryId: null,
   });
 
   const loading = useLoading();
