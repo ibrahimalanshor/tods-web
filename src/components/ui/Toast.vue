@@ -1,21 +1,19 @@
 <template>
   <div class="fixed top-5 left-0 w-full flex z-30" v-if="props.modelValue">
     <div
-      class="mx-auto min-w-[200px] border px-4 py-3 rounded flex items-center justify-between space-x-4"
+      class="mx-auto border px-4 py-3 rounded cursor-pointer"
       :class="[getColorClass]"
+      v-on:click="handleClose"
     >
       <span>
         <slot>{{ props.text }}</slot>
       </span>
-      <button class="flex" v-on:click="handleClose">
-        <close-icon />
-      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { watch, computed } from 'vue';
 import { Close as CloseIcon } from '@/components/icon';
 
 const props = defineProps({
@@ -37,6 +35,15 @@ const getColorClass = computed(() => {
 
   return colors[props.color ?? 'primary'];
 });
+
+watch(
+  () => props.modelValue,
+  () => {
+    if (props.modelValue) {
+      setTimeout(() => handleClose(), 2000);
+    }
+  }
+);
 
 const handleClose = () => emit('update:modelValue', false);
 </script>
