@@ -6,6 +6,9 @@ export default (init = {}) => {
   });
 
   const setCategoryBody = (value) => (categoryBody.value = value);
+  const resetCategoryBody = () => {
+    categoryBody.value.name = null;
+  };
 
-  return { categoryBody, setCategoryBody };
+  return { categoryBody, setCategoryBody, resetCategoryBody };
 };

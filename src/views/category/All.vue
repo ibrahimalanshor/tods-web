@@ -2,32 +2,52 @@
   <app>
     <div class="flex items-center justify-between mb-4">
       <h1 class="font-bold text-2xl">All Category</h1>
-      <category-list-action />
+      <category-list-action :filter="filter" v-on:filter="handleFilter" />
     </div>
     <template v-if="!loading.get('get-category')">
-      <category-list :categories="categories.rows" />
+      <category-list :categories="categories?.rows ?? []" />
     </template>
+    <ui-skeleton class="h-20" v-else />
   </app>
 </template>
 
 <script setup>
-import { onMounted, onBeforeMount } from 'vue';
+import { onMounted, onBeforeMount, inject } from 'vue';
 import { App } from '@/layouts';
+import { UiSkeleton } from '@/components/ui';
 import { CategoryList } from '@/components/category';
 import { CategoryListAction } from '@/components/category/list';
 import { useCategoryList } from '@/compose/category';
-import { useLoading } from '@/store';
+import { useLoading, useToast } from '@/store';
+import { HandledError } from '@/utils';
 
+const emitter = inject('emitter');
 const loading = useLoading();
-const { categories, getCategories } = useCategoryList();
+const toast = useToast();
+const { categories, filter, getCategories } = useCategoryList();
 
 const setCategories = async () => {
   try {
     await getCategories();
   } catch (err) {
-    console.log(err);
+    if (!(err instanceof HandledError)) {
+      toast.show('something error');
+    }
   }
 };
+
+const handleFilter = ({ sort, order }) => {
+  filter.sort = sort;
+  filter.order = order;
+
+  setCategories();
+};
+
+emitter.on('refresh-category', (e) => {
+  toast.show(e.msg, 'success');
+
+  setCategories();
+});
 
 onBeforeMount(() => {
   loading.start('get-category');

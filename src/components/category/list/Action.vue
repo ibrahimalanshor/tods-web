@@ -9,13 +9,15 @@
         class="bg-white absolute py-2 border rounded z-10 w-[300px] top-14 right-0"
       >
         <ui-collapse class="cursor-pointer px-4 py-2" label="Sort By">
-          <ui-select :options="sortOptions" v-model="sort" />
+          <ui-select :options="sortOptions" v-model="filter.sort" />
         </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Order By">
-          <ui-select :options="orderOptions" v-model="order" />
+          <ui-select :options="orderOptions" v-model="filter.order" />
         </ui-collapse>
         <div class="px-4 py-2 flex justify-end">
-          <ui-button size="sm" color="danger">Reset Filter</ui-button>
+          <ui-button size="sm" color="danger" v-on:click="handeResetFilter"
+            >Reset Filter</ui-button
+          >
         </div>
       </div>
     </ui-dropdown>
@@ -24,10 +26,20 @@
 </template>
 
 <script setup>
+import { reactive, watch } from 'vue';
 import { UiDropdown, UiButton, UiCollapse, UiSelect } from '@/components/ui';
 import { CategoryCreate } from '@/components/category';
-import { ref } from 'vue';
 import { sort as helperSortOptions, order as orderOptions } from '@/helpers';
+
+const props = defineProps({
+  filter: Object,
+});
+const emit = defineEmits(['filter']);
+
+const filter = reactive({
+  sort: props.filter?.sort,
+  order: props.filter?.order,
+});
 
 const sortOptions = [
   ...helperSortOptions,
@@ -36,10 +48,21 @@ const sortOptions = [
     label: 'Name',
   },
   {
-    value: 'createdAt',
+    value: 'id',
     label: 'Created',
   },
 ];
-const sort = ref('');
-const order = ref('');
+
+const handeResetFilter = () => {
+  filter.sort = null;
+  filter.order = null;
+};
+
+watch(
+  filter,
+  () => {
+    emit('filter', filter);
+  },
+  { deep: true }
+);
 </script>

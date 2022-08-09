@@ -1,5 +1,5 @@
 <template>
-  <ui-toast :text="toast.text" v-model="toast.isVisible" />
+  <ui-toast :color="toast.color" :text="toast.text" v-model="toast.isVisible" />
   <router-view />
 </template>
 
