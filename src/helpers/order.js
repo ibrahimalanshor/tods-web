@@ -1,6 +1,6 @@
 export default [
   {
-    value: '',
+    value: null,
     label: 'All',
   },
   {
