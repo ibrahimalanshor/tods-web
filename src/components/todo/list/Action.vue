@@ -8,6 +8,9 @@
       <div
         class="bg-white absolute py-2 border rounded z-10 w-[300px] top-14 right-0"
       >
+        <ui-collapse class="cursor-pointer px-4 py-2" label="Category">
+          <category-select v-model="filter.categoryId" />
+        </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Status">
           <ui-select :options="statusOptions" v-model="filter.status" />
         </ui-collapse>
@@ -40,6 +43,7 @@ import {
   UiDatePicker,
 } from '@/components/ui';
 import { TodoCreate } from '@/components/todo';
+import { CategorySelect } from '@/components/category/form';
 import { reactive, watch } from 'vue';
 import { sort as helperSortOptions, order as orderOptions } from '@/helpers';
 
@@ -58,8 +62,12 @@ const statusOptions = [
     label: 'Done',
   },
   {
-    value: 'false',
+    value: false,
     label: 'Not Finished',
+  },
+  {
+    value: 'late',
+    label: 'Late',
   },
 ];
 const sortOptions = [
@@ -79,6 +87,7 @@ const filter = reactive({
   order: props.filter?.order,
   status: props.filter?.status,
   due: props.filter?.due,
+  categoryId: props.filter?.categoryId,
 });
 
 const handleResetFilter = () => {
@@ -86,12 +95,16 @@ const handleResetFilter = () => {
   filter.order = null;
   filter.status = null;
   filter.due = null;
+  filter.categoryId = null;
 };
 
 watch(
   filter,
   () => {
-    emit('filter', filter);
+    emit('filter', {
+      ...filter,
+      categoryId: filter.categoryId?.id,
+    });
   },
   { deep: true }
 );
