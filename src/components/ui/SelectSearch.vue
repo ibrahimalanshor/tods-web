@@ -52,6 +52,13 @@ const handleSearch = (val) => emit('search', val);
 watch(selected, () => {
   emit('update:modelValue', selected.value);
 });
+
+watch(
+  () => props.modelValue,
+  () => {
+    selected.value = props.modelValue;
+  }
+);
 </script>
 
 <style>
