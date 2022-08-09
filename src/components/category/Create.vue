@@ -6,9 +6,9 @@
 
     <ui-alert
       class="mb-4"
-      color="danger"
-      :text="formAlert.message"
-      :visible="formAlert.visible"
+      :color="alert.color"
+      :text="alert.message"
+      :visible="alert.visible"
       v-on:close="handleAlertClose"
     />
 
@@ -41,6 +41,7 @@ import {
 } from '@/compose/category';
 import { useError, useLoading, useToast } from '@/store';
 import { HandledError } from '@/utils';
+import { useAlert } from '@/compose/ui';
 
 const emitter = inject('emitter');
 const loading = useLoading();
@@ -50,11 +51,7 @@ const { categoryModalVisible, showCategoryModal, hideCategoryModal } =
   useCategoryModal();
 const { categoryBody, setCategoryBody, resetCategoryBody } = useCategoryForm();
 const { createCategory } = useCategoryCreate();
-
-const formAlert = reactive({
-  visible: false,
-  message: '',
-});
+const { alert, showAlert, hideAlert } = useAlert();
 
 const formError = computed(() => {
   return error.get('create-category')?.errors ?? {};
@@ -64,24 +61,25 @@ const handleFormSubmit = async () => {
   try {
     await createCategory(categoryBody.value);
 
-    emitter.emit('category-created', { msg: 'Category Created' });
+    emitter.emit('refresh-category', { msg: 'Category Created' });
 
     hideCategoryModal();
   } catch (err) {
     if (!(err instanceof HandledError)) {
-      formAlert.visible = true;
-      formAlert.message = 'something error';
+      showAlert('something error');
     }
   }
 };
 
 const handleAlertClose = () => {
-  formAlert.visible = false;
+  hideAlert();
 };
 
 watch(categoryModalVisible, () => {
   error.reset('create-category');
   loading.stop('create-category');
+
+  hideAlert();
 
   resetCategoryBody();
 });

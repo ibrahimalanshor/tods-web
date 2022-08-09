@@ -4,22 +4,29 @@
       :label="props.category.name"
       :href="{ name: 'Todo Category', params: { id: 1 } }"
     />
-    <ui-dropdown position="right" space="small" :items="categoryActionItems">
-      <template #toggle>
-        <button>
-          <icon size="20">
-            <action-icon />
-          </icon>
-        </button>
-      </template>
-    </ui-dropdown>
+    <div class="flex items-center space-x-2">
+      <button class="text-primary-500" v-on:click="handleEditCategory">
+        <icon size="20">
+          <edit-icon />
+        </icon>
+      </button>
+      <button class="text-danger-500" v-on:click="handleDeleteCategory">
+        <icon size="20">
+          <delete-icon />
+        </icon>
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { Icon } from '@vicons/utils';
-import { EllipsisHorizontalOutline as ActionIcon } from '@vicons/ionicons5';
+import {
+  EllipsisHorizontalOutline as ActionIcon,
+  CreateOutline as EditIcon,
+  TrashOutline as DeleteIcon,
+} from '@vicons/ionicons5';
 import { UiDropdown, UiLink } from '@/components/ui';
 
 const props = defineProps({
@@ -34,17 +41,4 @@ const emit = defineEmits([
 
 const handleEditCategory = () => emit('edit-category', props.category);
 const handleDeleteCategory = () => emit('delete-category', props.category);
-
-const categoryActionItems = [
-  {
-    key: 'edit',
-    text: 'Edit',
-    onClick: handleEditCategory,
-  },
-  {
-    key: 'delete',
-    text: 'Delete',
-    onClick: handleDeleteCategory,
-  },
-];
 </script>
