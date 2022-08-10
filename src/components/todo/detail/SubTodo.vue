@@ -31,7 +31,11 @@ const props = defineProps({
   subTodos: Array,
   formErrors: null,
 });
-const emit = defineEmits(['submit-sub-todo']);
+const emit = defineEmits([
+  'submit-sub-todo',
+  'check-sub-todo',
+  'delete-sub-todo',
+]);
 
 const form = reactive({
   name: null,
@@ -41,6 +45,6 @@ const handleFormSubmit = () => {
   emit('submit-sub-todo', form);
 };
 
-const handleCheckTodo = (val) => console.log('check todo : ', val);
-const handleDeleteTodo = (val) => console.log('delete todo : ', val);
+const handleCheckTodo = (val) => emit('check-sub-todo', val);
+const handleDeleteTodo = (val) => emit('delete-sub-todo', val);
 </script>
