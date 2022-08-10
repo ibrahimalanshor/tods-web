@@ -8,13 +8,25 @@
       <div
         class="bg-white absolute py-2 border rounded z-10 w-[300px] top-14 right-0"
       >
-        <ui-collapse class="cursor-pointer px-4 py-2" label="Category">
+        <ui-collapse
+          class="cursor-pointer px-4 py-2"
+          label="Category"
+          v-if="filterItems.category"
+        >
           <category-select v-model="filter.categoryId" />
         </ui-collapse>
-        <ui-collapse class="cursor-pointer px-4 py-2" label="Status">
+        <ui-collapse
+          class="cursor-pointer px-4 py-2"
+          label="Status"
+          v-if="filterItems.status"
+        >
           <ui-select :options="statusOptions" v-model="filter.status" />
         </ui-collapse>
-        <ui-collapse class="cursor-pointer px-4 py-2" label="Due">
+        <ui-collapse
+          class="cursor-pointer px-4 py-2"
+          label="Due"
+          v-if="filterItems.due"
+        >
           <ui-date-picker placeholder="Due" v-model="filter.due" />
         </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Sort By">
@@ -30,7 +42,7 @@
         </div>
       </div>
     </ui-dropdown>
-    <todo-create />
+    <todo-create v-if="props.createButton" />
   </div>
 </template>
 
@@ -49,6 +61,11 @@ import { sort as helperSortOptions, order as orderOptions } from '@/helpers';
 
 const props = defineProps({
   filter: Object,
+  filterItems: Object,
+  createButton: {
+    type: Boolean,
+    default: true,
+  },
 });
 const emit = defineEmits(['filter']);
 
@@ -81,6 +98,12 @@ const sortOptions = [
     label: 'Created',
   },
 ];
+
+const filterItems = reactive({
+  status: props.filterItems?.status ?? true,
+  due: props.filterItems?.due ?? true,
+  category: props.filterItems?.category ?? true,
+});
 
 const filter = reactive({
   sort: props.filter?.sort,
