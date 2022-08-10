@@ -2,26 +2,69 @@
   <app>
     <div class="flex items-center justify-between mb-4">
       <h1 class="font-bold text-2xl">Done Todo</h1>
-      <todo-list-action />
+      <todo-list-action
+        :filter="filter"
+        :filter-items="{ status: false, due: false }"
+        :create-button="false"
+        v-on:filter="handleFilter"
+      />
     </div>
-    <todo-list :todos="todos" />
+    <template v-if="!loading.get('get-todo')">
+      <todo-list :todos="todos?.rows ?? []" />
+    </template>
+    <ui-skeleton v-else />
   </app>
 </template>
 
 <script setup>
+import { onMounted, onBeforeMount, inject } from 'vue';
 import { App } from '@/layouts';
+import { UiSkeleton } from '@/components/ui';
 import { TodoListAction } from '@/components/todo/list';
 import { TodoList } from '@/components/todo';
+import { useLoading, useToast } from '@/store';
+import { useTodoList } from '@/compose/todo';
+import { HandledError } from '@/utils';
 
-const todos = [
-  {
-    name: 'Get Works',
-    description: null,
-    done: true,
-    due: null,
-    category: null,
-    doneAt: new Date('2022-08-01T07:00:00'),
-    createdAt: new Date('2022-07-11T07:00:00'),
-  },
-];
+const emitter = inject('emitter');
+const loading = useLoading();
+const toast = useToast();
+
+const { todos, filter, getTodos } = useTodoList();
+
+const setTodos = async () => {
+  try {
+    filter.status = true;
+
+    await getTodos();
+  } catch (err) {
+    if (!(err instanceof HandledError)) {
+      toast.show('something error');
+    }
+  }
+};
+
+const handleFilter = ({ sort, order, categoryId }) => {
+  filter.sort = sort;
+  filter.order = order;
+  filter.categoryId = categoryId;
+
+  setTodos();
+};
+
+emitter.on('refresh-todo', (e) => {
+  if (e?.msg) {
+    toast.show(e.msg, 'success');
+  }
+
+  setTodos();
+});
+
+onBeforeMount(() => {
+  loading.start('get-todo');
+});
+
+onMounted(() => {
+  setTodos();
+});
 </script>
