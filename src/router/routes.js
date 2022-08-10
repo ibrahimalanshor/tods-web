@@ -127,15 +127,6 @@ export default [
           parent: 'todo',
         },
       },
-      {
-        path: 'ongoing',
-        name: 'Ongoing Todo',
-        component: () => import('@/views/todo/Ongoing.vue'),
-        meta: {
-          navKey: 'ongoing-todo',
-          parent: 'todo',
-        },
-      },
     ],
   },
   {

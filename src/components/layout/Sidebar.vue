@@ -59,12 +59,6 @@ const navs = [
             to: 'Late Todo',
             label: 'Late',
           },
-          {
-            key: 'ongoing-todo',
-            icon: CalendarIcon,
-            to: 'Ongoing Todo',
-            label: 'Ongoing',
-          },
         ],
       },
       {
