@@ -13,7 +13,6 @@ export default (name, err) => {
     const handledStatus = [422, 401, 409];
 
     if (status === 404) {
-      console.log('NotFound');
       router.push({ name: 'NotFound' });
     }
 
