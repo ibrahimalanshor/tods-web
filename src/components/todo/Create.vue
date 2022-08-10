@@ -39,6 +39,10 @@ import { useAlert } from '@/compose/ui';
 import { useError, useLoading } from '@/store';
 import { HandledError } from '@/utils';
 
+const props = defineProps({
+  form: Object,
+});
+
 const emitter = inject('emitter');
 const error = useError();
 const loading = useLoading();
@@ -70,6 +74,11 @@ watch(todoModalVisible, () => {
   loading.stop('create-todo');
 
   hideAlert();
-  resetTodoBody();
+  setTodoBody({
+    name: props.form?.name ?? null,
+    description: props.form?.description ?? null,
+    due: props.form?.due ? new Date(props.form.due) : null,
+    categoryId: props.form?.category ?? null,
+  });
 });
 </script>

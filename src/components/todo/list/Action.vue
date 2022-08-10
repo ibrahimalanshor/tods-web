@@ -42,7 +42,7 @@
         </div>
       </div>
     </ui-dropdown>
-    <todo-create v-if="props.createButton" />
+    <todo-create :form="form" v-if="props.createButton" />
   </div>
 </template>
 
@@ -66,6 +66,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  form: Object,
 });
 const emit = defineEmits(['filter']);
 
