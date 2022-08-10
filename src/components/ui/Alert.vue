@@ -7,7 +7,7 @@
     <span>
       <slot>{{ props.text }}</slot>
     </span>
-    <button class="flex" v-on:click="handleClose">
+    <button class="flex" v-on:click="handleClose" v-if="props.closable">
       <close-icon />
     </button>
   </div>
@@ -24,6 +24,10 @@ const props = defineProps({
   },
   text: null,
   color: String,
+  closable: {
+    type: Boolean,
+    default: true,
+  },
 });
 const emit = defineEmits(['close']);
 

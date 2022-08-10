@@ -8,24 +8,24 @@ export default () => {
     baseURL: import.meta.env.VITE_BASE_URL,
   });
 
-  const router = useRouter();
-  const auth = useAuth();
-
-  if (auth.isLogin) {
-    instance.defaults.headers.common['Authorization'] = auth.token.accessToken;
-  }
-
   instance.interceptors.request.use(async (config) => {
-    if (auth.isLogin && Date.now() > auth.decoded.exp * 1000) {
-      try {
-        const res = await authApi.refreshToken(auth.token.refreshToken);
+    const router = useRouter();
+    const auth = useAuth();
 
-        auth.refreshToken(res.data);
-        config.headers['Authorization'] = res.data;
-      } catch (err) {
-        auth.logout();
+    if (auth.isLogin) {
+      if (Date.now() > auth.decoded.exp * 1000) {
+        try {
+          const res = await authApi.refreshToken(auth.token.refreshToken);
 
-        router.push({ name: 'Login' });
+          auth.refreshToken(res.data);
+          config.headers['Authorization'] = res.data;
+        } catch (err) {
+          auth.logout();
+
+          router.push({ name: 'Login' });
+        }
+      } else {
+        config.headers['Authorization'] = auth.token.accessToken;
       }
     }
 

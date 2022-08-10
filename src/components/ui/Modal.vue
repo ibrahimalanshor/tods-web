@@ -4,11 +4,11 @@
   </div>
   <teleport to="body" v-if="props.visible">
     <div
-      class="bg-black bg-opacity-50 fixed inset-0 z-20 px-4"
+      class="bg-black bg-opacity-50 fixed inset-0 z-20 px-4 overflow-x-auto"
       v-if="props.visible"
     >
       <div
-        class="bg-white max-w-[500px] mx-auto mt-10 rounded shadow-lg"
+        class="bg-white max-w-[500px] mx-auto my-10 rounded shadow-lg"
         v-click-outside="handleClickOutside"
       >
         <div

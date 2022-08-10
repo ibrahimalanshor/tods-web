@@ -1,28 +1,47 @@
 <template>
-  <form>
+  <form v-on:submit.prevent="handleFormSubmit">
     <ui-form-item
       label="Name"
       type="text"
       id="name"
       placeholder="Name"
       v-model="body.name"
+      :status="errors?.name ? 'error' : ''"
+      :feedback="errors?.name?.msg"
     />
-    <ui-form-item label="Description" v-if="item.description">
+    <ui-form-item
+      label="Description"
+      v-if="item.description"
+      :status="errors?.description ? 'error' : ''"
+      :feedback="errors?.description?.msg"
+    >
       <ui-textarea
         id="description"
         placeholder="Description"
         v-model="body.description"
       />
     </ui-form-item>
-    <ui-form-item label="Due Date" v-if="item.due">
-      <ui-date-picker v-model="body.due" placeholder="Due Date" />
+    <ui-form-item
+      label="Due Date"
+      v-if="item.due"
+      :status="errors?.due ? 'error' : ''"
+      :feedback="errors?.due?.msg"
+    >
+      <ui-date-picker
+        v-model="body.due"
+        placeholder="Due Date"
+        :status="errors?.due ? 'error' : ''"
+      />
     </ui-form-item>
-    <ui-form-item label="Category" v-if="item.category">
-      <ui-select-search
-        label="name"
-        :options="categoryOptions"
-        v-model="body.category"
-        placeholder="Category"
+    <ui-form-item
+      label="Category"
+      v-if="item.category"
+      :status="errors?.categoryId ? 'error' : ''"
+      :feedback="errors?.categoryId?.msg"
+    >
+      <category-select
+        v-model="body.categoryId"
+        :status="errors?.categoryId ? 'error' : ''"
       />
     </ui-form-item>
 
@@ -64,7 +83,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, watch } from 'vue';
 import {
   CalendarClearOutline as CalendarIcon,
   BookmarkOutline as CategoryIcon,
@@ -78,35 +97,39 @@ import {
   UiDatePicker,
   UiTextarea,
 } from '@/components/ui';
+import { CategorySelect } from '@/components/category/form';
 
 const props = defineProps({
   modelValue: Object,
+  errors: {
+    type: Object,
+    default: () => {},
+  },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'submit']);
 
 const body = reactive({
   name: props.modelValue?.name ?? null,
   description: props.modelValue?.description ?? null,
   due: props.modelValue?.due ?? null,
-  category: props.modelValue?.category ?? null,
+  categoryId: props.modelValue?.categoryId ?? null,
 });
 const item = reactive({
   due: !!props.modelValue?.due ?? false,
   description: !!props.modelValue?.description ?? false,
-  category: !!props.modelValue?.category ?? true,
+  category: !!props.modelValue?.categoryId ?? true,
 });
-const categoryOptions = [
-  {
-    name: 'Work',
-    id: 1,
-  },
-  {
-    name: 'School',
-    id: 2,
-  },
-];
 
 const handleDueItemClick = () => (item.due = true);
 const handleCategoryItemClick = () => (item.category = true);
 const handleDescriptionItemClick = () => (item.description = true);
+const handleFormSubmit = () => emit('submit', body);
+
+watch(
+  body,
+  () => {
+    emit('update:modelValue', body);
+  },
+  { deep: true }
+);
 </script>

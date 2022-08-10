@@ -7,6 +7,7 @@ export default () => {
   const filter = reactive({
     sort: null,
     order: null,
+    name: null,
   });
 
   const loading = useLoading();

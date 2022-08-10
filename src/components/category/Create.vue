@@ -80,7 +80,6 @@ watch(categoryModalVisible, () => {
   loading.stop('create-category');
 
   hideAlert();
-
   resetCategoryBody();
 });
 </script>

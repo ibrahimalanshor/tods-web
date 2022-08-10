@@ -24,15 +24,16 @@ import {
 } from '@vicons/ionicons5';
 
 const props = defineProps({
-  modelValue: {
+  modelValue: Boolean,
+  label: String,
+  checked: {
     type: Boolean,
     default: false,
   },
-  label: String,
 });
 const emit = defineEmits(['update:modelValue', 'check']);
 
-const checked = ref(props.modelValue);
+const checked = ref(props.modelValue ?? props.checked);
 
 const handleClick = () => {
   checked.value = !checked.value;

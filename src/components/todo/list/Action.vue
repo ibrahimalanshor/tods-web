@@ -8,14 +8,25 @@
       <div
         class="bg-white absolute py-2 border rounded z-10 w-[300px] top-14 right-0"
       >
+        <ui-collapse class="cursor-pointer px-4 py-2" label="Category">
+          <category-select v-model="filter.categoryId" />
+        </ui-collapse>
+        <ui-collapse class="cursor-pointer px-4 py-2" label="Status">
+          <ui-select :options="statusOptions" v-model="filter.status" />
+        </ui-collapse>
+        <ui-collapse class="cursor-pointer px-4 py-2" label="Due">
+          <ui-date-picker placeholder="Due" v-model="filter.due" />
+        </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Sort By">
-          <ui-select :options="sortOptions" v-model="sort" />
+          <ui-select :options="sortOptions" v-model="filter.sort" />
         </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Order By">
-          <ui-select :options="orderOptions" v-model="order" />
+          <ui-select :options="orderOptions" v-model="filter.order" />
         </ui-collapse>
         <div class="px-4 py-2 flex justify-end">
-          <ui-button size="sm" color="danger">Reset Filter</ui-button>
+          <ui-button size="sm" color="danger" v-on:click="handleResetFilter"
+            >Reset Filter</ui-button
+          >
         </div>
       </div>
     </ui-dropdown>
@@ -24,11 +35,41 @@
 </template>
 
 <script setup>
-import { UiDropdown, UiButton, UiCollapse, UiSelect } from '@/components/ui';
+import {
+  UiDropdown,
+  UiButton,
+  UiCollapse,
+  UiSelect,
+  UiDatePicker,
+} from '@/components/ui';
 import { TodoCreate } from '@/components/todo';
-import { ref } from 'vue';
+import { CategorySelect } from '@/components/category/form';
+import { reactive, watch } from 'vue';
 import { sort as helperSortOptions, order as orderOptions } from '@/helpers';
 
+const props = defineProps({
+  filter: Object,
+});
+const emit = defineEmits(['filter']);
+
+const statusOptions = [
+  {
+    value: null,
+    label: 'All',
+  },
+  {
+    value: true,
+    label: 'Done',
+  },
+  {
+    value: false,
+    label: 'Not Finished',
+  },
+  {
+    value: 'late',
+    label: 'Late',
+  },
+];
 const sortOptions = [
   ...helperSortOptions,
   {
@@ -36,14 +77,35 @@ const sortOptions = [
     label: 'Name',
   },
   {
-    value: 'createdAt',
+    value: 'id',
     label: 'Created',
   },
-  {
-    value: 'due',
-    label: 'Due',
-  },
 ];
-const sort = ref('');
-const order = ref('');
+
+const filter = reactive({
+  sort: props.filter?.sort,
+  order: props.filter?.order,
+  status: props.filter?.status,
+  due: props.filter?.due,
+  categoryId: props.filter?.categoryId,
+});
+
+const handleResetFilter = () => {
+  filter.sort = null;
+  filter.order = null;
+  filter.status = null;
+  filter.due = null;
+  filter.categoryId = null;
+};
+
+watch(
+  filter,
+  () => {
+    emit('filter', {
+      ...filter,
+      categoryId: filter.categoryId?.id,
+    });
+  },
+  { deep: true }
+);
 </script>
