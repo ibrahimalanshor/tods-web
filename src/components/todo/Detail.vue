@@ -28,7 +28,11 @@
         </p>
 
         <hr class="my-3" />
-        <todo-detail-sub-todo :sub-todos="todo.children" />
+        <todo-detail-sub-todo
+          :sub-todos="todo.children"
+          :form-errors="createSubTodoErrors"
+          v-on:submit-sub-todo="handleSubmitSubTodo"
+        />
         <hr class="my-3" />
 
         <div class="flex flex-wrap">
@@ -79,8 +83,8 @@ import { useTodoModal } from '@/compose/todo';
 import { date } from '@/utils';
 import { HandledError } from '@/utils';
 import { useAlert } from '@/compose/ui';
-import { useLoading } from '@/store';
-import { useTodoView } from '@/compose/todo';
+import { useLoading, useError } from '@/store';
+import { useTodoView, useTodoCreate } from '@/compose/todo';
 
 const props = defineProps({
   modelValue: Boolean,
@@ -89,11 +93,13 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const loading = useLoading();
+const error = useError();
 const { alert, showAlert, hideAlert } = useAlert();
 const { todoModalVisible, showTodoModal, hideTodoModal } = useTodoModal(
   props.modelValue
 );
 const { todo, viewTodo } = useTodoView();
+const { createTodo } = useTodoCreate();
 
 const getStatusLabel = computed(() => {
   if (todo.value.status) return 'Done';
@@ -101,13 +107,13 @@ const getStatusLabel = computed(() => {
 
   return 'Unfinished';
 });
-
 const getStatusColor = computed(() => {
   if (todo.value.status) return 'success';
   if (dayjs().isAfter(dayjs(todo.value.due))) return 'danger';
 
   return 'primary';
 });
+const createSubTodoErrors = computed(() => error.get('create-todo')?.errors);
 
 const setTodo = async () => {
   try {
@@ -118,6 +124,22 @@ const setTodo = async () => {
     }
   }
 };
+const createSubTodo = async (body) => {
+  try {
+    await createTodo({
+      ...body,
+      parentId: todo.value.id,
+    });
+
+    setTodo();
+  } catch (err) {
+    if (!(err instanceof HandledError)) {
+      showAlert('something error');
+    }
+  }
+};
+
+const handleSubmitSubTodo = async (body) => createSubTodo(body);
 
 watch(
   () => props.modelValue,
@@ -131,8 +153,12 @@ watch(
 );
 
 watch(todoModalVisible, () => {
-  emit('update:modelValue', todoModalVisible.value);
+  error.reset('create-todo');
+  loading.stop('create-todo');
+  loading.stop('view-todo');
 
   hideAlert();
+
+  emit('update:modelValue', todoModalVisible.value);
 });
 </script>
