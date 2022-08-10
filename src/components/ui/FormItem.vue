@@ -11,7 +11,7 @@
       />
     </slot>
     <span
-      class="text-sm block mt-1 text-gray-500"
+      class="text-sm block mt-1"
       :class="[getFeedbackStatusClass]"
       v-if="props.feedback"
       >{{ props.feedback }}</span
@@ -35,7 +35,7 @@ const value = ref(props.modelValue);
 
 const getFeedbackStatusClass = computed(() => {
   const statuses = {
-    normal: '',
+    normal: 'text-gray-500',
     error: 'text-danger-500',
   };
 
