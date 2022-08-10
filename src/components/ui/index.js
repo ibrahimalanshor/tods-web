@@ -14,3 +14,4 @@ export { default as UiLink } from './Link.vue';
 export { default as UiToast } from './Toast.vue';
 export { default as UiAlert } from './Alert.vue';
 export { default as UiSkeleton } from './Skeleton.vue';
+export { default as UiErrorState } from './ErrorState.vue';
