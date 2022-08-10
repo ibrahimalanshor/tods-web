@@ -2,7 +2,7 @@
   <div class="border-b px-4 py-3 flex items-center justify-between">
     <ui-link
       :label="props.category.name"
-      :href="{ name: 'Todo Category', params: { id: 1 } }"
+      :href="{ name: 'Todo Category', params: { id: props.category.id } }"
     />
     <div class="flex items-center space-x-2">
       <button class="text-primary-500" v-on:click="handleEditCategory">

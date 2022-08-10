@@ -1,66 +1,105 @@
 <template>
   <app>
-    <div class="flex items-center justify-between mb-4">
-      <h1 class="font-bold text-2xl">Works</h1>
-      <todo-list-action />
-    </div>
-    <todo-list :todos="todos" />
+    <ui-skeleton v-if="loading.get('view-category')" />
+
+    <template v-else>
+      <ui-error-state v-if="errorState" />
+      <template v-else>
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="font-bold text-2xl">{{ category.name }}</h1>
+          <todo-list-action
+            :filter="filter"
+            :filter-items="{ category: false }"
+            :form="{ category }"
+            v-on:filter="handleFilter"
+          />
+        </div>
+        <template v-if="!loading.get('get-todo')">
+          <todo-list :todos="todos?.rows ?? []" />
+        </template>
+        <ui-skeleton v-else />
+      </template>
+    </template>
   </app>
 </template>
 
 <script setup>
+import { onMounted, onBeforeMount, inject, ref } from 'vue';
 import { App } from '@/layouts';
+import { UiSkeleton, UiErrorState } from '@/components/ui';
 import { TodoListAction } from '@/components/todo/list';
 import { TodoList } from '@/components/todo';
+import { useLoading, useToast } from '@/store';
+import { useCategoryView } from '@/compose/category';
+import { useTodoList } from '@/compose/todo';
+import { HandledError } from '@/utils';
+import { useRoute, useRouter } from 'vue-router';
 
-const todos = [
-  {
-    name: 'Finish Semester Antara',
-    description:
-      'Standar Enkripsi Data adalah algoritme kunci simetris untuk enkripsi data elektroni',
-    done: false,
-    due: new Date('2022-08-20T07:00:00'),
-    category: {
-      id: 1,
-      name: 'School',
-    },
-    doneAt: null,
-    createdAt: new Date('2022-08-02T07:00:00'),
-    children: [
-      {
-        name: 'KRS-an',
-        done: true,
-      },
-      {
-        name: 'UTS',
-        done: true,
-      },
-      {
-        name: 'UAS',
-        done: false,
-      },
-    ],
-  },
-  {
-    name: 'Cook for Dinner',
-    description: null,
-    done: false,
-    due: new Date('2022-08-01T08:00:00'),
-    category: null,
-    doneAt: null,
-    createdAt: new Date('2022-08-01T07:00:00'),
-  },
-  {
-    name: 'Backend Roadmap',
-    description: null,
-    done: false,
-    due: null,
-    category: {
-      id: 2,
-      name: 'Roadmap',
-    },
-    doneAt: null,
-    createdAt: new Date('2022-07-21T07:00:00'),
-  },
-];
+const emitter = inject('emitter');
+const router = useRouter();
+const route = useRoute();
+const loading = useLoading();
+const toast = useToast();
+
+const { category, viewCategory } = useCategoryView();
+const { todos, filter, getTodos } = useTodoList();
+const errorState = ref(false);
+
+const setCategory = async () => {
+  try {
+    await viewCategory(route.params.id);
+
+    setTodos();
+  } catch (err) {
+    if (!(err instanceof HandledError)) {
+      errorState.value = true;
+    }
+  }
+};
+const setTodos = async () => {
+  try {
+    if (filter.status === null) {
+      filter.status = false;
+    }
+
+    filter.categoryId = category.value.id;
+
+    await getTodos();
+  } catch (err) {
+    if (!(err instanceof HandledError)) {
+      errorState.value = true;
+    }
+  }
+};
+
+const handleFilter = ({ sort, order, status, due }) => {
+  filter.sort = sort;
+  filter.order = order;
+  filter.status = status;
+  filter.due = due;
+
+  if (filter.status === 'late') {
+    filter.late = new Date();
+  } else {
+    filter.late = null;
+  }
+
+  setTodos();
+};
+
+emitter.on('refresh-todo', (e) => {
+  if (e?.msg) {
+    toast.show(e.msg, 'success');
+  }
+
+  setTodos();
+});
+
+onBeforeMount(() => {
+  loading.start('get-todo');
+});
+
+onMounted(() => {
+  setCategory();
+});
 </script>

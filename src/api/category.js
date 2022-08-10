@@ -9,6 +9,11 @@ export default {
 
     return res.data;
   },
+  view: async function (id) {
+    const res = await http().get(`${this.baseURL}/${id}`);
+
+    return res.data;
+  },
   create: async function (body) {
     const res = await http().post(this.baseURL, body);
 

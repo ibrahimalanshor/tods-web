@@ -130,6 +130,11 @@ export default [
     ],
   },
   {
+    path: '/forbidden',
+    name: 'Forbidden',
+    component: () => import('@/views/Forbidden.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/NotFound.vue'),
