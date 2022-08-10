@@ -2,6 +2,7 @@
   <div class="mb-2 flex items-center justify-between">
     <ui-checkbox
       :label="props.todo.name"
+      :checked="props.todo.status"
       v-on:check="handleCheckTodo"
       v-model="done"
     >
