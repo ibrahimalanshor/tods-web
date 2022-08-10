@@ -1,7 +1,6 @@
 import { ref } from 'vue';
 import { category as categoryApi } from '@/api';
 import { useLoading, useError } from '@/store';
-import { handleError } from '@/helpers';
 
 export default () => {
   const loading = useLoading();
@@ -15,13 +14,13 @@ export default () => {
     try {
       const res = await categoryApi.view(id);
 
-      category.value = res;
+      category.value = res.data;
     } catch (err) {
-      handleError('view-category', err);
+      error.handle('view-category', err);
     } finally {
       loading.stop('view-category');
     }
   };
 
-  return { viewCategory };
+  return { category, viewCategory };
 };
