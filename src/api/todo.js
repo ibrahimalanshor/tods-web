@@ -14,6 +14,11 @@ export default {
 
     return res.data;
   },
+  view: async function (id) {
+    const res = await http().get(`${this.baseURL}/${id}`);
+
+    return res.data;
+  },
   update: async function (id, body) {
     const res = await http().patch(`${this.baseURL}/${id}`, body);
 
