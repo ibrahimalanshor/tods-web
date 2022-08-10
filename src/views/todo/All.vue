@@ -29,6 +29,10 @@ const { todos, filter, getTodos } = useTodoList();
 
 const setTodos = async () => {
   try {
+    if (filter.status === null) {
+      filter.status = false;
+    }
+
     await getTodos();
   } catch (err) {
     if (!(err instanceof HandledError)) {
