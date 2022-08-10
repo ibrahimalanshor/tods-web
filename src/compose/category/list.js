@@ -8,6 +8,7 @@ export default () => {
     sort: null,
     order: null,
     name: null,
+    limit: null,
   });
 
   const loading = useLoading();
