@@ -11,6 +11,7 @@ export default () => {
     due: null,
     late: null,
     categoryId: null,
+    limit: null,
   });
 
   const loading = useLoading();
