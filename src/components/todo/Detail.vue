@@ -32,6 +32,8 @@
           :sub-todos="todo.children"
           :form-errors="createSubTodoErrors"
           v-on:submit-sub-todo="handleSubmitSubTodo"
+          v-on:check-sub-todo="handleCheckSubTodo"
+          v-on:delete-sub-todo="handleDeleteSubTodo"
         />
         <hr class="my-3" />
 
@@ -84,7 +86,12 @@ import { date } from '@/utils';
 import { HandledError } from '@/utils';
 import { useAlert } from '@/compose/ui';
 import { useLoading, useError } from '@/store';
-import { useTodoView, useTodoCreate } from '@/compose/todo';
+import {
+  useTodoView,
+  useTodoCreate,
+  useTodoUpdateDone,
+  useTodoDelete,
+} from '@/compose/todo';
 
 const props = defineProps({
   modelValue: Boolean,
@@ -100,6 +107,8 @@ const { todoModalVisible, showTodoModal, hideTodoModal } = useTodoModal(
 );
 const { todo, viewTodo } = useTodoView();
 const { createTodo } = useTodoCreate();
+const { updateTodoDone } = useTodoUpdateDone();
+const { deleteTodo } = useTodoDelete();
 
 const getStatusLabel = computed(() => {
   if (todo.value.status) return 'Done';
@@ -124,7 +133,8 @@ const setTodo = async () => {
     }
   }
 };
-const createSubTodo = async (body) => {
+
+const handleSubmitSubTodo = async (body) => {
   try {
     await createTodo({
       ...body,
@@ -138,8 +148,28 @@ const createSubTodo = async (body) => {
     }
   }
 };
+const handleCheckSubTodo = async ({ todo, checked: done }) => {
+  try {
+    await updateTodoDone(todo.id, done);
 
-const handleSubmitSubTodo = async (body) => createSubTodo(body);
+    setTodo();
+  } catch (err) {
+    if (!(err instanceof HandledError)) {
+      showAlert('something error');
+    }
+  }
+};
+const handleDeleteSubTodo = async (todo) => {
+  try {
+    await deleteTodo(todo.id);
+
+    setTodo();
+  } catch (err) {
+    if (!(err instanceof HandledError)) {
+      showAlert('something error');
+    }
+  }
+};
 
 watch(
   () => props.modelValue,
