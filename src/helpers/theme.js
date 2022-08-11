@@ -1,9 +1,12 @@
 export default () => {
-  let theme =
-    localStorage.getItem('theme') ||
-    (window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light');
+  const savedTheme = localStorage.getItem('theme');
+  const dark = localStorage.hasOwnProperty('theme')
+    ? savedTheme === 'dark' || savedTheme === null
+    : window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  document.documentElement.classList.add(theme);
+  if (dark) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
 };
