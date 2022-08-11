@@ -22,7 +22,12 @@
       />
     </template>
 
-    <div class="px-4 py-3 border-b dark:border-gray-700" v-else>Todo Empty</div>
+    <div
+      class="px-4 py-3 border-b dark:bg-gray-800 dark:border-gray-700"
+      v-else
+    >
+      Todo Empty
+    </div>
   </div>
 </template>
 

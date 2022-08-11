@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-b px-4 py-3 flex items-center justify-between dark:border-gray-700"
+    class="border-b px-4 py-3 flex items-center justify-between dark:bg-gray-800 dark:border-gray-700"
   >
     <ui-link
       :label="props.category.name"

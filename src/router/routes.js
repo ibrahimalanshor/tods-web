@@ -40,30 +40,6 @@ export default [
     },
   },
   {
-    path: '/forgot-password',
-    name: 'Forgot Password',
-    component: () => import('@/views/auth/ForgotPassword.vue'),
-    meta: {
-      requireGuest: true,
-    },
-  },
-  {
-    path: '/verification',
-    name: 'Verification Email',
-    component: () => import('@/views/auth/VerificationEmail.vue'),
-    meta: {
-      requireGuest: true,
-    },
-  },
-  {
-    path: '/reset-password',
-    name: 'Reset Password',
-    component: () => import('@/views/auth/ResetPassword.vue'),
-    meta: {
-      requireGuest: true,
-    },
-  },
-  {
     path: '/category',
     component: () => import('@/layouts/Empty.vue'),
     meta: {

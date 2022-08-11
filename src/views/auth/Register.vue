@@ -44,14 +44,6 @@
           :disabled="loading.get('register')"
           >Sign Up</ui-button
         >
-        <ui-button block class="mb-3" type="button">
-          <span class="flex items-center space-x-2">
-            <icon>
-              <logo-google-icon />
-            </icon>
-            <span>Sign Up Using Google</span>
-          </span>
-        </ui-button>
         <p class="text-center">
           Already have account?
           <ui-link :href="{ name: 'Login' }" label="Login Here" />

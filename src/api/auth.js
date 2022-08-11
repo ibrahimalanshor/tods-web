@@ -21,4 +21,7 @@ export default {
 
     return res.data;
   },
+  logout: async function (token) {
+    await http().post(`${this.baseURL}/logout`, { token });
+  },
 };
