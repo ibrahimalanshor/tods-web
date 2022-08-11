@@ -20,7 +20,9 @@
     </template>
 
     <div v-else>
-      <div class="border-b px-4 py-3 dark:border-gray-700">Category Empty</div>
+      <div class="border-b px-4 py-3 dark:bg-gray-800 dark:border-gray-700">
+        Category Empty
+      </div>
     </div>
   </div>
 </template>
