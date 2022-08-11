@@ -8,11 +8,11 @@
       v-if="props.visible"
     >
       <div
-        class="bg-white max-w-[500px] mx-auto my-10 rounded shadow-lg"
+        class="bg-white max-w-[500px] mx-auto my-10 rounded shadow-lg dark:bg-gray-800"
         v-click-outside="handleClickOutside"
       >
         <div
-          class="p-4 border-b flex items-center justify-between"
+          class="p-4 border-b flex items-center justify-between dark:border-gray-700"
           :class="props.headerClass"
           v-if="props.header"
         >
@@ -33,11 +33,13 @@
         </div>
         <div class="p-4" :class="props.contentClass">
           <slot>
-            <p class="leading-loose text-gray-700">{{ props.content }}</p>
+            <p class="leading-loose text-gray-700 dark:text-gray-100">
+              {{ props.content }}
+            </p>
           </slot>
         </div>
         <div
-          class="p-4 space-x-2 flex justify-end border-t"
+          class="p-4 space-x-2 flex justify-end border-t dark:border-gray-700"
           v-if="props.footer"
         >
           <slot name="footer" />

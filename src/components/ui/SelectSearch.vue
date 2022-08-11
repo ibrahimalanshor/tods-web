@@ -63,7 +63,7 @@ watch(
 
 <style>
 .v-select .vs__dropdown-toggle {
-  @apply bg-white border border-gray-200 px-3 py-2 rounded hover:border-gray-300;
+  @apply bg-white border border-gray-200 px-3 py-2 rounded hover:border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600;
 }
 .v-select.vs--open {
   @apply outline-none ring-2 ring-primary-200 rounded;
@@ -87,7 +87,10 @@ watch(
   @apply p-0 m-0;
 }
 .v-select .vs__dropdown-menu {
-  @apply border border-gray-200 shadow-none border-t;
+  @apply border border-gray-200 shadow-none border-t dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600;
+}
+.v-select .vs__selected {
+  @apply dark:text-gray-100;
 }
 .v-select .vs__dropdown-option {
   @apply px-3 py-2;

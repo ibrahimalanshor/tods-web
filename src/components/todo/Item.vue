@@ -1,5 +1,7 @@
 <template>
-  <div class="border-b px-4 py-3 flex items-center justify-between">
+  <div
+    class="border-b px-4 py-3 flex items-center justify-between dark:border-gray-700"
+  >
     <ui-checkbox
       :label="props.todo.name"
       :checked="props.todo.status"

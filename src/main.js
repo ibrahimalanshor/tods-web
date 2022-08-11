@@ -7,6 +7,9 @@ import App from './App.vue';
 import router from './router';
 import './main.css';
 import 'vue-select/dist/vue-select.css';
+import { setTheme } from './helpers';
+
+setTheme();
 
 const app = createApp(App);
 const pinia = createPinia();

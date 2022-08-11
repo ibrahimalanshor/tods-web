@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded border border-b-0">
+  <div class="rounded border border-b-0 dark:border-gray-700">
     <template v-if="todos.length">
       <todo-item
         v-for="(todo, key) in props.todos"
@@ -22,7 +22,7 @@
       />
     </template>
 
-    <div class="px-4 py-3 border-b" v-else>Todo Empty</div>
+    <div class="px-4 py-3 border-b dark:border-gray-700" v-else>Todo Empty</div>
   </div>
 </template>
 

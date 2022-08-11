@@ -95,9 +95,10 @@ export default {
 
     const renderChild = (child, options) => {
       const tag = child.to ? resolveComponent('router-link') : 'div';
-      const activeClass = 'bg-primary-100 text-primary-500 font-medium';
+      const activeClass =
+        'bg-primary-100 text-primary-500 font-medium dark:bg-gray-600 dark:text-gray-100';
       const labelClass =
-        'px-4 mb-2 flex items-center space-x-4 hover:bg-primary-100 hover:text-primary-500 hover:font-medium py-2 rounded cursor-pointer';
+        'px-4 mb-2 flex items-center space-x-4 hover:bg-primary-100 hover:text-primary-500 hover:font-medium py-2 rounded cursor-pointer dark:hover:bg-gray-600 dark:hover:text-gray-100';
 
       return h(
         tag,
@@ -122,7 +123,13 @@ export default {
     const renderChildren = (children, options) => {
       return h(
         'div',
-        { class: ['bg-primary-50', 'py-1', options.show ? '' : 'hidden'] },
+        {
+          class: [
+            'bg-primary-50 dark:bg-gray-700',
+            'py-1',
+            options.show ? '' : 'hidden',
+          ],
+        },
         {
           default: () =>
             children.map((child, index) =>
@@ -156,7 +163,10 @@ export default {
     const renderTitle = (title) => {
       return h(
         'div',
-        { class: 'px-4 font-bold text-sm text-gray-600 uppercase mb-4' },
+        {
+          class:
+            'px-4 font-bold text-sm text-gray-600 uppercase mb-4 dark:text-gray-400',
+        },
         {
           default: () => title,
         }

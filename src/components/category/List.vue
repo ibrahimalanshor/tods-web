@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded border border-b-0">
+  <div class="rounded border border-b-0 dark:border-gray-700">
     <template v-if="categories.length">
       <category-item
         v-for="(category, key) in props.categories"
@@ -20,7 +20,7 @@
     </template>
 
     <div v-else>
-      <div class="border-b px-4 py-3">Category Empty</div>
+      <div class="border-b px-4 py-3 dark:border-gray-700">Category Empty</div>
     </div>
   </div>
 </template>
