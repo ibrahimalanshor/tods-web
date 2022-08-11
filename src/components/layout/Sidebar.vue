@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="w-[300px] fixed top-0 h-full border-r pt-16 bg-white z-10"
+    class="w-[300px] fixed top-0 h-full border-r pt-16 bg-white z-10 dark:bg-gray-800 dark:border-r-gray-700"
     :class="sidebar.isCollapsed ? 'left-full md:left-0' : 'left-0'"
   >
     <div class="overflow-x-auto h-full">

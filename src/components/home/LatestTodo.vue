@@ -20,13 +20,14 @@
 import { onMounted, onBeforeMount, inject, ref } from 'vue';
 import { UiSkeleton, UiErrorState } from '@/components/ui';
 import { TodoList } from '@/components/todo';
-import { useLoading } from '@/store';
+import { useLoading, useToast } from '@/store';
 import { useTodoList } from '@/compose/todo';
 import { HandledError } from '@/utils';
 import TopCategory from './TopCategory.vue';
 
 const emitter = inject('emitter');
 const loading = useLoading();
+const toast = useToast();
 
 const { todos, filter, getTodos } = useTodoList();
 

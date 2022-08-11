@@ -27,7 +27,7 @@
           {{ todo.description ?? 'No Description' }}
         </p>
 
-        <hr class="my-3" />
+        <hr class="my-3 dark:border-gray-700" />
         <todo-detail-sub-todo
           :sub-todos="todo.children"
           :form-errors="createSubTodoErrors"
@@ -35,7 +35,7 @@
           v-on:check-sub-todo="handleCheckSubTodo"
           v-on:delete-sub-todo="handleDeleteSubTodo"
         />
-        <hr class="my-3" />
+        <hr class="my-3 dark:border-gray-700" />
 
         <div class="flex flex-wrap">
           <div class="w-full mb-2">

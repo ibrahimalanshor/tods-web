@@ -17,7 +17,7 @@ import { ref, watch } from 'vue';
 import { UiSelectSearch } from '@/components/ui';
 import { useCategoryList } from '@/compose/category';
 import { HandledError } from '@/utils';
-import { useLoading } from '@/store';
+import { useLoading, useToast } from '@/store';
 import { debounce } from '@/utils';
 
 const props = defineProps({
@@ -31,6 +31,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const loading = useLoading();
+const toast = useToast();
 const { categories, filter, getCategories } = useCategoryList();
 
 const selected = ref(props.modelValue);

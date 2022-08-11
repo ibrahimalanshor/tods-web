@@ -6,7 +6,7 @@
       </template>
 
       <div
-        class="bg-white absolute py-2 border rounded z-10 w-[300px] top-14 right-0"
+        class="bg-white absolute py-2 border rounded z-10 w-[300px] top-14 right-0 dark:bg-gray-800 dark:border-gray-700"
       >
         <ui-collapse class="cursor-pointer px-4 py-2" label="Sort By">
           <ui-select :options="sortOptions" v-model="filter.sort" />

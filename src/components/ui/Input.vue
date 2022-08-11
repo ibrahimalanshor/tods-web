@@ -1,7 +1,7 @@
 <template>
   <input
     type="text"
-    class="block w-full border px-3 py-2 rounded hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-200 disabled:bg-gray-100"
+    class="block w-full border px-3 py-2 rounded hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-200 disabled:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600"
     :class="[sizeClass, statusClass]"
     v-model="value"
   />
@@ -31,7 +31,8 @@ const sizeClass = computed(() => {
 const statusClass = computed(() => {
   const statuses = {
     normal: '',
-    error: 'border-danger-500 hover:border-danger-400 focus:ring-danger-200',
+    error:
+      'border-danger-500 hover:border-danger-400 focus:ring-danger-200 dark:border-danger-500 dark:hover:border-danger-600',
   };
 
   return statuses[props.status ?? 'normal'];

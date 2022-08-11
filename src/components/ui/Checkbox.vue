@@ -2,7 +2,7 @@
   <div class="flex items-center space-x-2">
     <icon
       class="cursor-pointer"
-      :class="checked ? 'text-primary-500' : 'text-gray-300'"
+      :class="checked ? 'text-primary-500' : 'text-gray-300 dark:text-gray-600'"
       size="20"
       v-on:click="handleClick"
     >

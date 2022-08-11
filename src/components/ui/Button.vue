@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="border rounded hover:bg-gray-100 focus:ring-2 focus:outline-none flex items-center space-x-2 disabled:opacity-50"
+    class="border rounded focus:ring-2 focus:outline-none flex items-center space-x-2 disabled:opacity-50"
     :class="[
       sizeClass,
       colorClass,
@@ -40,13 +40,14 @@ const sizeClass = computed(() => {
 
 const colorClass = computed(() => {
   const colors = {
-    normal: 'bg-white hover:bg-gray-100 focus:ring-primary-200',
+    normal:
+      'bg-white hover:bg-gray-100 focus:ring-primary-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:border-gray-600',
     primary:
       'bg-primary-500 text-white border-primary-500 hover:bg-primary-600 focus:bg-primary-600 focus:ring-primary-200',
     danger:
       'bg-danger-500 text-white border-danger-500 hover:bg-danger-600 focus:bg-danger-600 focus:ring-danger-200',
   };
 
-  return colors[props.color ?? 'normal'];
+  return colors[props.color || 'normal'];
 });
 </script>

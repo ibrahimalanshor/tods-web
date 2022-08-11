@@ -5,7 +5,7 @@
     </div>
     <slot v-if="visible">
       <div
-        class="bg-white absolute py-2 border rounded z-10"
+        class="bg-white absolute py-2 border rounded z-10 dark:bg-gray-800 dark:border-gray-700"
         :class="[
           getContentSizeClass,
           getContentPositionClass,
@@ -15,8 +15,11 @@
         <div
           v-for="(item, key) in props.items"
           :key="key"
-          class="cursor-pointer hover:bg-gray-100 px-4 py-2"
-          :class="[item.class, item.divider ? 'border-b' : '']"
+          class="cursor-pointer hover:bg-gray-100 px-4 py-2 dark:hover:bg-gray-700"
+          :class="[
+            item.class,
+            item.divider ? 'border-b dark:border-b-gray-700' : '',
+          ]"
           v-on:click="handleItemClick(item)"
         >
           {{ item.text }}
