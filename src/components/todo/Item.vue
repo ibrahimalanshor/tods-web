@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-b px-4 py-3 flex items-center justify-between dark:border-gray-700"
+    class="border-b px-4 py-3 flex items-center justify-between dark:bg-gray-800 dark:border-gray-700"
   >
     <ui-checkbox
       :label="props.todo.name"
@@ -11,7 +11,9 @@
       <template #label="{ checked, label }">
         <span
           class="cursor-pointer"
-          :class="checked ? 'line-through text-gray-500' : ''"
+          :class="
+            checked ? 'line-through text-gray-500 dark:text-gray-400' : ''
+          "
           v-on:click="handleDetailTodo"
           >{{ label }}</span
         >
