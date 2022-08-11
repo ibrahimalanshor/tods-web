@@ -29,13 +29,6 @@
           :status="formError.password ? 'error' : ''"
           :feedback="formError.password?.msg"
         />
-        <div class="flex justify-between mb-3">
-          <ui-checkbox label="Remember Me" />
-          <ui-link
-            :href="{ name: 'Forgot Password' }"
-            label="Forgot Password"
-          />
-        </div>
         <ui-button
           type="submit"
           color="primary"
@@ -44,14 +37,6 @@
           :disabled="loading.get('login')"
           >Sign In</ui-button
         >
-        <ui-button type="button" block class="mb-3">
-          <span class="flex items-center space-x-2">
-            <icon>
-              <logo-google-icon />
-            </icon>
-            <span>Sign In Using Google</span>
-          </span>
-        </ui-button>
         <p class="text-center">
           Doesn't have account?
           <ui-link :href="{ name: 'Register' }" label="Register Here" />
