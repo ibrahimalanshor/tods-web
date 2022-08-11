@@ -24,6 +24,9 @@
 import { watch } from 'vue';
 import { UiButton, UiModal } from '@/components/ui';
 import { useLogoutModal } from '@/compose/navbar';
+import { useLogout } from '@/compose/auth';
+import { useLoading } from '@/store';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   visible: {
@@ -32,13 +35,19 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(['update:visible']);
+
+const router = useRouter();
+const loading = useLoading();
 const { logoutModalVisible, showLogoutModal, hideLogoutModal } =
   useLogoutModal();
+const { logout } = useLogout();
 
-const handleLogoutModalConfirm = () => {
-  console.log('process logout');
+const handleLogoutModalConfirm = async () => {
+  try {
+    await logout();
 
-  hideLogoutModal();
+    router.push({ name: 'Login' });
+  } catch (err) {}
 };
 const handleLogoutModalCancel = () => {
   hideLogoutModal();
