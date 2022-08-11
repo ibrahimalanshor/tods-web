@@ -6,6 +6,7 @@
         :type="$attrs.type"
         :id="$attrs.id"
         :placeholder="$attrs.placeholder"
+        :disabled="$attrs.disabled"
         :status="props.status"
         v-model="value"
       />
@@ -45,4 +46,11 @@ const getFeedbackStatusClass = computed(() => {
 watch(value, () => {
   emit('update:modelValue', value.value);
 });
+
+watch(
+  () => props.modelValue,
+  () => {
+    value.value = props.modelValue;
+  }
+);
 </script>

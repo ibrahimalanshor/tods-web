@@ -1,5 +1,5 @@
 import { ref, reactive } from 'vue';
-import { useLoading } from '@/store';
+import { useLoading, useError } from '@/store';
 import { category as categoryApi } from '@/api';
 
 export default () => {
@@ -12,16 +12,18 @@ export default () => {
   });
 
   const loading = useLoading();
+  const error = useError();
 
   const getCategories = async () => {
     loading.start('get-category');
+    error.reset('get-category');
 
     try {
       const res = await categoryApi.get(filter);
 
       categories.value = res.data;
     } catch (err) {
-      throw err;
+      error.handle('view-category', err);
     } finally {
       loading.stop('get-category');
     }
