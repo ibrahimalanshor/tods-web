@@ -1,5 +1,5 @@
 import { ref, reactive } from 'vue';
-import { useLoading } from '@/store';
+import { useLoading, useError } from '@/store';
 import { todo as todoApi } from '@/api';
 
 export default () => {
@@ -15,16 +15,18 @@ export default () => {
   });
 
   const loading = useLoading();
+  const error = useError();
 
   const getTodos = async () => {
     loading.start('get-todo');
+    error.reset('get-todo');
 
     try {
       const res = await todoApi.get(filter);
 
       todos.value = res.data;
     } catch (err) {
-      throw err;
+      error.handle('view-category', err);
     } finally {
       loading.stop('get-todo');
     }
