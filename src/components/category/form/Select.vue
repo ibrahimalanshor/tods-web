@@ -9,6 +9,7 @@
     v-model="selected"
     v-on:open="handleOpen"
     v-on:search="handleSearch"
+    v-on:change="handleChange"
   />
 </template>
 
@@ -28,7 +29,7 @@ const props = defineProps({
   },
   status: String,
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'change']);
 
 const loading = useLoading();
 const toast = useToast();
@@ -56,9 +57,10 @@ const handleSearch = (val) => {
   setCategoriesDebounce();
 };
 
-watch(selected, () => {
+const handleChange = () => {
   emit('update:modelValue', selected.value);
-});
+  emit('change', selected.value);
+};
 
 watch(
   () => props.modelValue,

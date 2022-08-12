@@ -13,27 +13,46 @@
           label="Category"
           v-if="filterItems.category"
         >
-          <category-select v-model="filter.categoryId" />
+          <category-select
+            v-model="filter.categoryId"
+            v-on:change="handleChange"
+          />
         </ui-collapse>
         <ui-collapse
           class="cursor-pointer px-4 py-2"
           label="Status"
           v-if="filterItems.status"
         >
-          <ui-select :options="statusOptions" v-model="filter.done" />
+          <ui-select
+            :options="statusOptions"
+            v-model="filter.done"
+            v-on:change="handleChange"
+          />
         </ui-collapse>
         <ui-collapse
           class="cursor-pointer px-4 py-2"
           label="Due"
           v-if="filterItems.due"
         >
-          <ui-date-picker placeholder="Due" v-model="filter.due" />
+          <ui-date-picker
+            placeholder="Due"
+            v-model="filter.due"
+            v-on:change="handleChange"
+          />
         </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Sort By">
-          <ui-select :options="sortOptions" v-model="filter.sort" />
+          <ui-select
+            :options="sortOptions"
+            v-model="filter.sort"
+            v-on:change="handleChange"
+          />
         </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Order By">
-          <ui-select :options="orderOptions" v-model="filter.order" />
+          <ui-select
+            :options="orderOptions"
+            v-model="filter.order"
+            v-on:change="handleChange"
+          />
         </ui-collapse>
         <div class="px-4 py-2 flex justify-end">
           <ui-button size="sm" color="danger" v-on:click="handleResetFilter"
@@ -72,7 +91,7 @@ const emit = defineEmits(['filter']);
 
 const statusOptions = [
   {
-    value: null,
+    value: '',
     label: 'All',
   },
   {
@@ -115,20 +134,27 @@ const filter = reactive({
 });
 
 const handleResetFilter = () => {
-  filter.sort = null;
-  filter.order = null;
+  filter.sort = '';
+  filter.order = '';
   filter.done = null;
   filter.due = null;
   filter.categoryId = null;
+
+  emit('filter', filter);
+};
+
+const handleChange = () => {
+  emit('filter', filter);
 };
 
 watch(
-  filter,
+  props.filter,
   () => {
-    emit('filter', {
-      ...filter,
-      categoryId: filter.categoryId?.id,
-    });
+    filter.sort = props.filter?.sort;
+    filter.order = props.filter?.order;
+    filter.done = props.filter?.done;
+    filter.due = props.filter?.due;
+    filter.categoryId = props.filter?.categoryId;
   },
   { deep: true }
 );
