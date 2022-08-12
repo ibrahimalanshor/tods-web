@@ -4,8 +4,6 @@
       <slot name="toggle" />
     </template>
 
-    {{ categoryBody }}
-
     <ui-alert
       class="mb-4"
       :color="alert.color"
