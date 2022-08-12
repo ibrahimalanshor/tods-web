@@ -29,8 +29,8 @@ const { todos, filter, getTodos } = useTodoList();
 
 const setTodos = async () => {
   try {
-    if (filter.status === null) {
-      filter.status = false;
+    if (filter.done === null) {
+      filter.done = false;
     }
 
     await getTodos();
@@ -41,14 +41,14 @@ const setTodos = async () => {
   }
 };
 
-const handleFilter = ({ sort, order, status, due, categoryId }) => {
+const handleFilter = ({ sort, order, done, due, categoryId }) => {
   filter.sort = sort;
   filter.order = order;
-  filter.status = status;
+  filter.done = done;
   filter.due = due;
   filter.categoryId = categoryId;
 
-  if (filter.status === 'late') {
+  if (filter.done === 'late') {
     filter.late = new Date();
   } else {
     filter.late = null;

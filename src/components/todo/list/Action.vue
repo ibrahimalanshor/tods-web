@@ -20,7 +20,7 @@
           label="Status"
           v-if="filterItems.status"
         >
-          <ui-select :options="statusOptions" v-model="filter.status" />
+          <ui-select :options="statusOptions" v-model="filter.done" />
         </ui-collapse>
         <ui-collapse
           class="cursor-pointer px-4 py-2"
@@ -109,7 +109,7 @@ const filterItems = reactive({
 const filter = reactive({
   sort: props.filter?.sort,
   order: props.filter?.order,
-  status: props.filter?.status,
+  done: props.filter?.done,
   due: props.filter?.due,
   categoryId: props.filter?.categoryId,
 });
@@ -117,7 +117,7 @@ const filter = reactive({
 const handleResetFilter = () => {
   filter.sort = null;
   filter.order = null;
-  filter.status = null;
+  filter.done = null;
   filter.due = null;
   filter.categoryId = null;
 };

@@ -58,8 +58,8 @@ const setCategory = async () => {
 };
 const setTodos = async () => {
   try {
-    if (filter.status === null) {
-      filter.status = false;
+    if (filter.done === null) {
+      filter.done = false;
     }
 
     filter.categoryId = category.value.id;
@@ -72,13 +72,13 @@ const setTodos = async () => {
   }
 };
 
-const handleFilter = ({ sort, order, status, due }) => {
+const handleFilter = ({ sort, order, done, due }) => {
   filter.sort = sort;
   filter.order = order;
-  filter.status = status;
+  filter.done = done;
   filter.due = due;
 
-  if (filter.status === 'late') {
+  if (filter.done === 'late') {
     filter.late = new Date();
   } else {
     filter.late = null;

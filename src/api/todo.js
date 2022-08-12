@@ -25,8 +25,8 @@ export default {
     return res.data;
   },
   updateDone: async function (id, done) {
-    const res = await http().patch(`${this.baseURL}/${id}/status`, {
-      status: done,
+    const res = await http().patch(`${this.baseURL}/${id}/done`, {
+      done: done,
     });
 
     return res.data;
