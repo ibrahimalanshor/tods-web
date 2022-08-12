@@ -1,16 +1,19 @@
 <template>
   <div>
     <ui-skeleton class="h-8" v-if="loading.get('get-category')" />
-    <div class="flex flex-wrap gap-2" v-else>
-      <ui-button
-        size="sm"
-        :color="active === category.id ? 'primary' : ''"
-        v-for="category in categories?.rows ?? []"
-        :key="category.id"
-        v-on:click="handleCategoryClick(category)"
-        >{{ category.name }}</ui-button
-      >
-    </div>
+    <template v-else>
+      <div class="flex flex-wrap gap-2" v-if="categories?.rows?.length">
+        <ui-button
+          size="sm"
+          :color="active === category.id ? 'primary' : ''"
+          v-for="category in categories?.rows ?? []"
+          :key="category.id"
+          v-on:click="handleCategoryClick(category)"
+          >{{ category.name }}</ui-button
+        >
+      </div>
+      <ui-button size="sm" v-else>All</ui-button>
+    </template>
   </div>
 </template>
 
@@ -30,7 +33,9 @@ const active = ref(null);
 
 const setCategories = async () => {
   try {
+    filter.sort = 'todoCount';
     filter.limit = 5;
+    filter.hasTodo = true;
 
     await getCategories();
   } catch (err) {
