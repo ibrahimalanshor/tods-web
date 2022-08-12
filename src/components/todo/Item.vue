@@ -1,6 +1,7 @@
 <template>
   <div
-    class="border-b px-4 py-3 flex items-center justify-between dark:bg-gray-800 dark:border-gray-700"
+    class="border-b px-4 py-3 flex items-center justify-between dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer can-open-detail"
+    v-on:click="handleDetailTodo"
   >
     <ui-checkbox
       :label="props.todo.name"
@@ -10,11 +11,10 @@
     >
       <template #label="{ checked, label }">
         <span
-          class="cursor-pointer"
+          class="cursor-pointer can-open-detail"
           :class="
             checked ? 'line-through text-gray-500 dark:text-gray-400' : ''
           "
-          v-on:click="handleDetailTodo"
           >{{ label }}</span
         >
       </template>
@@ -62,7 +62,11 @@ const handleCheckTodo = (checked) =>
   });
 const handleEditTodo = () => emit('edit-todo', props.todo);
 const handleDeleteTodo = () => emit('delete-todo', props.todo);
-const handleDetailTodo = () => emit('show-todo', props.todo);
+const handleDetailTodo = (e) => {
+  if (e.target.classList.contains('can-open-detail')) {
+    emit('show-todo', props.todo);
+  }
+};
 
 const todoActionItems = [
   {
