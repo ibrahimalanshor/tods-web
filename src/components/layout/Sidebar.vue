@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import {
   AlbumsOutline as CategoryIcon,
   BrowsersOutline as TodoIcon,
@@ -75,4 +75,8 @@ const sidebar = useSidebar();
 const route = useRoute();
 const activeNav = ref(route.matched.map((path) => path.meta.navKey));
 const showNav = ref(route.matched.map((path) => path.meta.navKey));
+
+watch(route, () => {
+  sidebar.hide();
+});
 </script>
