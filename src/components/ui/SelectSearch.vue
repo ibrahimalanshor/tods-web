@@ -9,6 +9,7 @@
     v-model="selected"
     v-on:open="handleOpen"
     v-on:search="handleSearch"
+    v-on:option:selected="handleSelected"
   />
 </template>
 
@@ -33,7 +34,7 @@ const props = defineProps({
     default: true,
   },
 });
-const emit = defineEmits(['update:modelValue', 'open', 'search']);
+const emit = defineEmits(['update:modelValue', 'open', 'search', 'change']);
 
 const selected = ref(props.modelValue);
 
@@ -48,10 +49,10 @@ const statusClass = computed(() => {
 
 const handleOpen = () => emit('open');
 const handleSearch = (val) => emit('search', val);
-
-watch(selected, () => {
-  emit('update:modelValue', selected.value);
-});
+const handleSelected = (val) => {
+  emit('update:modelValue', val);
+  emit('change', val);
+};
 
 watch(
   () => props.modelValue,

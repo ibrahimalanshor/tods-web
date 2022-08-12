@@ -62,6 +62,13 @@ emitter.on('refresh-todo', (e) => {
     toast.show(e.msg, 'success');
   }
 
+  filter.sort = '';
+  filter.order = '';
+  filter.done = null;
+  filter.due = null;
+  filter.categoryId = null;
+  filter.late = null;
+
   setTodos();
 });
 

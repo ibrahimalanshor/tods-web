@@ -46,6 +46,9 @@ const handleFilter = ({ sort, order }) => {
 emitter.on('refresh-category', (e) => {
   toast.show(e.msg, 'success');
 
+  filter.sort = '';
+  filter.order = '';
+
   setCategories();
 });
 

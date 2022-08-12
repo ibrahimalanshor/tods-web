@@ -3,6 +3,7 @@
     class="block w-full border px-3 py-2 rounded hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600"
     :class="[statusClass]"
     v-model="selected"
+    v-on:update:modelValue="handleChange"
   />
 </template>
 
@@ -14,7 +15,7 @@ const props = defineProps({
   modelValue: Date,
   status: String,
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'change']);
 
 const selected = ref(props.modelValue);
 
@@ -27,14 +28,15 @@ const statusClass = computed(() => {
   return statuses[props.status ?? 'normal'];
 });
 
+const handleChange = (val) => {
+  emit('update:modelValue', val);
+  emit('change', val);
+};
+
 watch(
   () => props.modelValue,
   () => {
     selected.value = props.modelValue;
   }
 );
-
-watch(selected, () => {
-  emit('update:modelValue', selected.value);
-});
 </script>

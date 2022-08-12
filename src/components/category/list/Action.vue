@@ -9,10 +9,18 @@
         class="bg-white absolute py-2 border rounded z-10 w-[300px] top-14 right-0 dark:bg-gray-800 dark:border-gray-700"
       >
         <ui-collapse class="cursor-pointer px-4 py-2" label="Sort By">
-          <ui-select :options="sortOptions" v-model="filter.sort" />
+          <ui-select
+            :options="sortOptions"
+            v-model="filter.sort"
+            v-on:change="handleChange"
+          />
         </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Order By">
-          <ui-select :options="orderOptions" v-model="filter.order" />
+          <ui-select
+            :options="orderOptions"
+            v-model="filter.order"
+            v-on:change="handleChange"
+          />
         </ui-collapse>
         <div class="px-4 py-2 flex justify-end">
           <ui-button size="sm" color="danger" v-on:click="handeResetFilter"
@@ -54,14 +62,21 @@ const sortOptions = [
 ];
 
 const handeResetFilter = () => {
-  filter.sort = null;
-  filter.order = null;
+  filter.sort = '';
+  filter.order = '';
+
+  emit('filter', filter);
+};
+
+const handleChange = () => {
+  emit('filter', filter);
 };
 
 watch(
-  filter,
+  props.filter,
   () => {
-    emit('filter', filter);
+    filter.sort = props.filter?.sort;
+    filter.order = props.filter?.order;
   },
   { deep: true }
 );

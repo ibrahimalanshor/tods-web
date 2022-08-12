@@ -4,6 +4,7 @@
     class="block w-full border px-3 py-2 rounded hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-200 disabled:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600"
     :class="[sizeClass, statusClass]"
     v-model="value"
+    v-on:input="handleChange"
   />
 </template>
 
@@ -15,7 +16,7 @@ const props = defineProps({
   size: String,
   status: String,
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'change']);
 
 const value = ref(props.modelValue);
 
@@ -38,9 +39,10 @@ const statusClass = computed(() => {
   return statuses[props.status ?? 'normal'];
 });
 
-watch(value, () => {
-  emit('update:modelValue', value.value);
-});
+const handleChange = (e) => {
+  emit('update:modelValue', e.target.value);
+  emit('change', e.target.value);
+};
 
 watch(
   () => props.modelValue,
