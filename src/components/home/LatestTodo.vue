@@ -60,6 +60,8 @@ emitter.on('refresh-todo', (e) => {
     toast.show(e.msg, 'success');
   }
 
+  filter.categoryId = null;
+
   setTodos();
 });
 
