@@ -111,13 +111,13 @@ const { updateTodoDone } = useTodoUpdateDone();
 const { deleteTodo } = useTodoDelete();
 
 const getStatusLabel = computed(() => {
-  if (todo.value.status) return 'Done';
+  if (todo.value.done) return 'Done';
   if (dayjs().isAfter(dayjs(todo.value.due))) return 'Late';
 
   return 'Unfinished';
 });
 const getStatusColor = computed(() => {
-  if (todo.value.status) return 'success';
+  if (todo.value.done) return 'success';
   if (dayjs().isAfter(dayjs(todo.value.due))) return 'danger';
 
   return 'primary';

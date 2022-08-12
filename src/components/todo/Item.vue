@@ -4,7 +4,7 @@
   >
     <ui-checkbox
       :label="props.todo.name"
-      :checked="props.todo.status"
+      :checked="props.todo.done"
       v-on:check="handleCheckTodo"
       v-model="done"
     >

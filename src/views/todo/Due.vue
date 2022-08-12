@@ -34,7 +34,7 @@ const { todos, filter, getTodos } = useTodoList();
 
 const setTodos = async () => {
   try {
-    filter.status = false;
+    filter.done = false;
     filter.due = new Date();
 
     await getTodos();

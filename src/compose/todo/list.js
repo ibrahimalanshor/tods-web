@@ -7,7 +7,7 @@ export default () => {
   const filter = reactive({
     sort: null,
     order: null,
-    status: null,
+    done: null,
     due: null,
     late: null,
     categoryId: null,

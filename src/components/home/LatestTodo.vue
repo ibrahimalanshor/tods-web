@@ -35,7 +35,7 @@ const errorState = ref(false);
 
 const setTodos = async () => {
   try {
-    filter.status = false;
+    filter.done = false;
     filter.limit = 10;
 
     await getTodos();
