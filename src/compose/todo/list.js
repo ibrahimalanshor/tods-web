@@ -5,8 +5,8 @@ import { todo as todoApi } from '@/api';
 export default () => {
   const todos = ref({});
   const filter = reactive({
-    sort: null,
-    order: null,
+    sort: '',
+    order: '',
     done: null,
     due: null,
     late: null,
@@ -22,7 +22,10 @@ export default () => {
     error.reset('get-todo');
 
     try {
-      const res = await todoApi.get(filter);
+      const res = await todoApi.get({
+        ...filter,
+        categoryId: filter.categoryId?.id ?? null,
+      });
 
       todos.value = res.data;
     } catch (err) {

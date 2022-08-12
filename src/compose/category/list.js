@@ -5,8 +5,8 @@ import { category as categoryApi } from '@/api';
 export default () => {
   const categories = ref({});
   const filter = reactive({
-    sort: null,
-    order: null,
+    sort: '',
+    order: '',
     name: null,
     limit: null,
     hasTodo: null,
