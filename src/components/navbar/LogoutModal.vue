@@ -8,7 +8,9 @@
     <template #footer>
       <div v-on:click="handleLogoutModalConfirm">
         <slot name="confirm">
-          <ui-button color="danger">Logout</ui-button>
+          <ui-button color="danger" :disabled="loading.get('logout')"
+            >Logout</ui-button
+          >
         </slot>
       </div>
       <div v-on:click="handleLogoutModalCancel">
