@@ -36,6 +36,14 @@
           :status="formError.password ? 'error' : ''"
           :feedback="formError.password?.msg"
         />
+        <ui-form-item
+          type="password"
+          label="Password Confirmation"
+          placeholder="Password Confirmation"
+          v-model="body.password_confirmation"
+          :status="formError.password_confirmation ? 'error' : ''"
+          :feedback="formError.password_confirmation?.msg"
+        />
         <ui-button
           type="submit"
           color="primary"
