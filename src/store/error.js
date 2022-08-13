@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import router from '@/router';
 import { HandledError } from '@/utils';
 
 export default defineStore('error', {
@@ -21,19 +20,12 @@ export default defineStore('error', {
 
       if (err?.response) {
         const { status, data } = err.response;
-        const handledStatus = [422, 401, 409];
-
-        if (status === 404) {
-          router.push({ name: 'NotFound' });
-        }
-
-        if (status === 403) {
-          router.push({ name: 'Forbidden' });
-        }
+        const handledStatus = [422, 401, 409, 404, 403];
 
         if (handledStatus.includes(status)) {
           this.add(name, {
             status,
+            message: data.message,
             errors: data.errors,
           });
 
