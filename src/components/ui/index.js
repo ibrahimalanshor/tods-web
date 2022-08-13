@@ -15,3 +15,4 @@ export { default as UiToast } from './Toast.vue';
 export { default as UiAlert } from './Alert.vue';
 export { default as UiSkeleton } from './Skeleton.vue';
 export { default as UiErrorState } from './ErrorState.vue';
+export { default as UiProgress } from './Progress.vue';
