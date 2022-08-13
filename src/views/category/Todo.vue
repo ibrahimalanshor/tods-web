@@ -91,7 +91,7 @@ const setTodos = async () => {
       filter.done = false;
     }
 
-    filter.categoryId = category.value.id;
+    filter.categoryId = category.value;
 
     await getTodos();
   } catch (err) {
