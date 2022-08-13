@@ -6,7 +6,14 @@
       <ui-error-state v-if="errorState" />
       <template v-else>
         <div class="flex items-center justify-between mb-4">
-          <h1 class="font-bold text-2xl">{{ category.name }}</h1>
+          <div class="flex items-center space-x-4">
+            <router-link :to="{ name: 'All Category' }" class="flex">
+              <icon size="20">
+                <back-icon />
+              </icon>
+            </router-link>
+            <h1 class="font-bold text-2xl">{{ category.name }}</h1>
+          </div>
           <todo-list-action
             :filter="filter"
             :filter-items="{ category: false }"
@@ -25,6 +32,8 @@
 
 <script setup>
 import { onMounted, onBeforeMount, inject, ref } from 'vue';
+import { Icon } from '@vicons/utils';
+import { ArrowBackOutline as BackIcon } from '@vicons/ionicons5';
 import { App } from '@/layouts';
 import { UiSkeleton, UiErrorState } from '@/components/ui';
 import { TodoListAction } from '@/components/todo/list';
