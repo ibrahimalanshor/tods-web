@@ -1,17 +1,17 @@
 <template>
   <div>
-    <ui-error-state v-if="errorState" />
+    <ui-skeleton v-if="loading.get('get-todo')" />
     <template v-else>
-      <h1 class="font-bold text-2xl mb-4">Latest Todo</h1>
-      <top-category
-        class="mb-4"
-        v-on:click="handleTopCategoryClick"
-        v-on:error="handleTopCategoryError"
-      />
-      <template v-if="!loading.get('get-todo')">
+      <ui-error-state v-if="errorState" />
+      <template v-else>
+        <h1 class="font-bold text-2xl mb-4">Latest Todo</h1>
+        <top-category
+          class="mb-4"
+          v-on:click="handleTopCategoryClick"
+          v-on:error="handleTopCategoryError"
+        />
         <todo-list :todos="todos?.rows ?? []" />
       </template>
-      <ui-skeleton v-else />
     </template>
   </div>
 </template>

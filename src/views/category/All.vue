@@ -1,20 +1,23 @@
 <template>
   <app>
-    <div class="flex items-center justify-between mb-4">
-      <h1 class="font-bold text-2xl">All Category</h1>
-      <category-list-action :filter="filter" v-on:filter="handleFilter" />
-    </div>
-    <template v-if="!loading.get('get-category')">
-      <category-list :categories="categories?.rows ?? []" />
+    <ui-skeleton class="h-20" v-if="loading.get('get-category')" />
+    <template v-else>
+      <ui-error-state v-if="errorState" />
+      <template v-else>
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="font-bold text-2xl">All Category</h1>
+          <category-list-action :filter="filter" v-on:filter="handleFilter" />
+        </div>
+        <category-list :categories="categories?.rows ?? []" />
+      </template>
     </template>
-    <ui-skeleton class="h-20" v-else />
   </app>
 </template>
 
 <script setup>
-import { onMounted, onBeforeMount, inject } from 'vue';
+import { ref, onMounted, onBeforeMount, inject } from 'vue';
 import { App } from '@/layouts';
-import { UiSkeleton } from '@/components/ui';
+import { UiSkeleton, UiErrorState } from '@/components/ui';
 import { CategoryList } from '@/components/category';
 import { CategoryListAction } from '@/components/category/list';
 import { useCategoryList } from '@/compose/category';
@@ -26,12 +29,14 @@ const loading = useLoading();
 const toast = useToast();
 const { categories, filter, getCategories } = useCategoryList();
 
+const errorState = ref(false);
+
 const setCategories = async () => {
   try {
     await getCategories();
   } catch (err) {
     if (!(err instanceof HandledError)) {
-      toast.show('something error');
+      errorState.value = true;
     }
   }
 };

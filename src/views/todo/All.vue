@@ -1,20 +1,23 @@
 <template>
   <app>
-    <div class="flex items-center justify-between mb-4">
-      <h1 class="font-bold text-2xl">All Todo</h1>
-      <todo-list-action :filter="filter" v-on:filter="handleFilter" />
-    </div>
-    <template v-if="!loading.get('get-todo')">
-      <todo-list :todos="todos?.rows ?? []" />
+    <ui-skeleton class="h-20" v-if="loading.get('get-todo')" />
+    <template v-else>
+      <ui-error-state v-if="errorState" />
+      <template v-else>
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="font-bold text-2xl">All Todo</h1>
+          <todo-list-action :filter="filter" v-on:filter="handleFilter" />
+        </div>
+        <todo-list :todos="todos?.rows ?? []" />
+      </template>
     </template>
-    <ui-skeleton v-else />
   </app>
 </template>
 
 <script setup>
-import { onMounted, onBeforeMount, inject } from 'vue';
+import { ref, onMounted, onBeforeMount, inject } from 'vue';
 import { App } from '@/layouts';
-import { UiSkeleton } from '@/components/ui';
+import { UiSkeleton, UiErrorState } from '@/components/ui';
 import { TodoListAction } from '@/components/todo/list';
 import { TodoList } from '@/components/todo';
 import { useLoading, useToast } from '@/store';
@@ -27,6 +30,8 @@ const toast = useToast();
 
 const { todos, filter, getTodos } = useTodoList();
 
+const errorState = ref(false);
+
 const setTodos = async () => {
   try {
     if (filter.done === null) {
@@ -36,7 +41,7 @@ const setTodos = async () => {
     await getTodos();
   } catch (err) {
     if (!(err instanceof HandledError)) {
-      toast.show('something error');
+      errorState.value = true;
     }
   }
 };
