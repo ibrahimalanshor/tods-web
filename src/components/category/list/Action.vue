@@ -12,14 +12,14 @@
           <ui-select
             :options="sortOptions"
             v-model="filter.sort"
-            v-on:change="handleChange"
+            v-on:change="handleFilterChange"
           />
         </ui-collapse>
         <ui-collapse class="cursor-pointer px-4 py-2" label="Order By">
           <ui-select
             :options="orderOptions"
             v-model="filter.order"
-            v-on:change="handleChange"
+            v-on:change="handleFilterChange"
           />
         </ui-collapse>
         <div class="px-4 py-2 flex justify-end">
@@ -68,7 +68,7 @@ const handeResetFilter = () => {
   emit('filter', filter);
 };
 
-const handleChange = () => {
+const handleFilterChange = () => {
   emit('filter', filter);
 };
 
