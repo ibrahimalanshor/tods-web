@@ -13,7 +13,7 @@ export default () => {
     try {
       await todoApi.delete(id);
     } catch (err) {
-      handleError('delete-todo', err);
+      error.handle('delete-todo', err);
     } finally {
       loading.stop('delete-todo');
     }

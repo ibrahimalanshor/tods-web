@@ -13,7 +13,7 @@ export default () => {
     try {
       await categoryApi.create(body);
     } catch (err) {
-      handleError('create-category', err);
+      error.handle('create-category', err);
     } finally {
       loading.stop('create-category');
     }

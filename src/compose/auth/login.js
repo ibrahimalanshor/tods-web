@@ -22,7 +22,7 @@ export default () => {
 
       auth.login(res.data.accessToken, res.data.refreshToken);
     } catch (err) {
-      handleError('login', err);
+      error.handle('login', err);
     } finally {
       loading.stop('login');
     }

@@ -16,7 +16,7 @@ export default () => {
         categoryId: body.categoryId?.id,
       });
     } catch (err) {
-      handleError('create-todo', err);
+      error.handle('create-todo', err);
     } finally {
       loading.stop('create-todo');
     }

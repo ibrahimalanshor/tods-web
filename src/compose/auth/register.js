@@ -23,7 +23,7 @@ export default () => {
 
       auth.login(res.data.accessToken, res.data.refreshToken);
     } catch (err) {
-      handleError('register', err);
+      error.handle('register', err);
     } finally {
       loading.stop('register');
     }

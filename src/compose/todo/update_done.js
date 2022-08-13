@@ -13,7 +13,7 @@ export default () => {
     try {
       await todoApi.updateDone(id, done);
     } catch (err) {
-      handleError('update-done-todo', err);
+      error.handle('update-done-todo', err);
     } finally {
       loading.stop('update-done-todo');
     }

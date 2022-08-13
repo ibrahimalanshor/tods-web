@@ -17,7 +17,7 @@ export default () => {
 
       todo.value = res.data;
     } catch (err) {
-      handleError('view-todo', err);
+      error.handle('view-todo', err);
     } finally {
       loading.stop('view-todo');
     }

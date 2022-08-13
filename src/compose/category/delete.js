@@ -13,7 +13,7 @@ export default () => {
     try {
       await categoryApi.delete(id);
     } catch (err) {
-      handleError('delete-category', err);
+      error.handle('delete-category', err);
     } finally {
       loading.stop('delete-category');
     }

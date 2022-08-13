@@ -16,7 +16,7 @@ export default () => {
         categoryId: body.categoryId?.id,
       });
     } catch (err) {
-      handleError('update-todo', err);
+      error.handle('update-todo', err);
     } finally {
       loading.stop('update-todo');
     }

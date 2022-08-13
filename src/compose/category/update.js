@@ -13,7 +13,7 @@ export default () => {
     try {
       await categoryApi.update(id, body);
     } catch (err) {
-      handleError('update-category', err);
+      error.handle('update-category', err);
     } finally {
       loading.stop('update-category');
     }
