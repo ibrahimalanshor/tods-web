@@ -5,7 +5,7 @@
       <div class="flex flex-wrap gap-2" v-if="categories?.rows?.length">
         <ui-button
           size="sm"
-          :color="active === category.id ? 'primary' : ''"
+          :color="active?.id === category.id ? 'primary' : ''"
           v-for="category in categories?.rows ?? []"
           :key="category.id"
           v-on:click="handleCategoryClick(category)"
@@ -46,7 +46,7 @@ const setCategories = async () => {
 };
 
 const handleCategoryClick = (category) => {
-  active.value = category.id === active.value ? null : category.id;
+  active.value = category.id === active.value?.id ? null : category;
 };
 
 watch(active, () => {
